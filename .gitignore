@@ -1,0 +1,17 @@
+# Ignore vendor folder (if using Composer)
+vendor/
+
+# Ignore environment files
+.env
+*.env.*
+
+# Ignore node modules (if using frontend like React/Vite)
+node_modules/
+
+# Ignore logs and OS files
+*.log
+.DS_Store
+Thumbs.db
+
+# Ignore SQLite or local DB files
+*.sqlite

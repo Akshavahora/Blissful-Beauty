@@ -1,15 +1,11 @@
 <?php
-
-$host = "localhost";
+$host = "mysql"; // Use service name from docker-compose.yml
 $config_username = "root";
-$password = "";
-$db = "cosmetic";
+$password = "root";
+$db = "cosmetic"; // or test_db, based on your setup
 
-// Create a connection
 $conn = mysqli_connect($host, $config_username, $password, $db);
 
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
 }
