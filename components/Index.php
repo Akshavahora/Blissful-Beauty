@@ -117,11 +117,11 @@ include('./header.php');
                         <div class="flex flex-col-reverse md:flex-row items-center justify-between gap-10 w-full">
                             <!-- CONTENT -->
                             <div class="w-full md:w-1/2 text-center md:text-left">
-                                <span class="text-pink-500 font-semibold">New Arrival</span>
-                                <h3 class="text-3xl md:text-4xl font-bold mt-3">
+                                <span class="text-pink-500 font-semibold text-4xl">New Arrival</span>
+                                <h3 class="text-5xl md:text-4xl font-bold mt-3">
                                     <?php echo $row['P_Name']; ?>
                                 </h3>
-                                <p class="mt-4 text-gray-600">
+                                <p class="mt-4 text-gray-600 text-2xl">
                                     <?php echo $row['P_Description']; ?>
                                 </p>
                                 <a href="product.php?id=<?php echo $row['P_Id']; ?>"

@@ -21,80 +21,61 @@ $res = mysqli_query($conn, $sel);
 <section class="Products px-4 md:px-36 pt-6 pb-16 bg-gradient-to-br from-teal-50 via-white to-teal-100 animate-fade-in-up" id="Products">
     <h1 class="heading text-center text-black text-[2.5rem] md:text-[3rem] pb-8 uppercase font-bold tracking-wide animate-fade-in">Top-rated</h1>
 
-    <!-- Brand Filter -->
-    <div class="inline-block relative mb-12 animate-fade-in-up">
-        <button id="otherFilterBtn" class="border border-black px-4 py-2 rounded-md text-black font-bold flex items-center space-x-2 bg-white shadow hover:bg-teal-50 transition-all duration-200">
-            <i class="fa fa-tags text-teal-600"></i>
-            <span>BRAND (<span id="selectedBrandCount">0</span>)</span>
-            <svg class="w-4 h-4 transition-transform duration-200" id="otherFilterArrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-            </svg>
-        </button>
-        <div id="otherFilterPanel" class="hidden absolute bg-white border border-gray-300 shadow-2xl w-96 p-4 mt-2 rounded-xl z-50 animate-fade-in-up">
-            <span class="block text-gray-600 text-sm font-bold mb-2">Brand:</span>
-            <div class="grid grid-cols-1 gap-2 mt-2">
-                <?php
-                $brands = ["MAC", "MAYBELLINE", "L'OREAL", "HUDA BEAUTY", "LAKME"];
-                $brandIcons = [
-                    "MAC" => "fa-brush",
-                    "MAYBELLINE" => "fa-star",
-                    "L'OREAL" => "fa-crown",
-                    "HUDA BEAUTY" => "fa-gem",
-                    "LAKME" => "fa-leaf",
-                ];
-                foreach ($brands as $brand) : ?>
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" class="brand-checkbox" value="<?php echo strtolower($brand); ?>">
-                        <i class="fa <?php echo $brandIcons[$brand] ?? 'fa-dot-circle'; ?> text-teal-400"></i>
-                        <span><?php echo $brand; ?></span>
-                    </label>
-                <?php endforeach; ?>
-            </div>
-            <div class="flex justify-between mt-4">
-                <button id="clearBrandFilter" class="border border-black px-4 py-2 text-black rounded-md hover:bg-teal-100 hover:text-teal-800 transition-all duration-200 shadow">CLEAR</button>
-                <button id="applyOtherFilter" class="bg-black text-white px-4 py-2 rounded-md hover:bg-teal-700 transition-all duration-200 shadow">APPLY</button>
+    <!-- Filters Row -->
+    <div class="flex flex-col md:flex-row md:items-center md:space-x-8 space-y-4 md:space-y-0 mb-12 animate-fade-in-up">
+        <!-- Brand Filter -->
+        <div class="inline-block relative">
+            <button id="otherFilterBtn" class="border border-black px-4 py-2 rounded-md text-black font-bold flex items-center space-x-2 bg-white shadow hover:bg-teal-50 transition-all duration-200">
+                <i class="fa fa-tags text-teal-500"></i>
+                <span>BRAND (<span id="selectedBrandCount">0</span>)</span>
+                <svg class="w-4 h-4 transition-transform duration-200" id="otherFilterArrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </button>
+            <div id="otherFilterPanel" class="hidden absolute bg-white border border-gray-300 shadow-lg w-96 p-4 mt-2 rounded-md z-50 animate-fade-in-up">
+                <span class="block text-gray-600 text-sm font-bold mb-2">Brand:</span>
+                <div class="grid grid-cols-1 gap-2 mt-2">
+                    <?php
+                    $brands = ["MAC", "MAYBELLINE", "L'OREAL", "HUDA BEAUTY", "LAKME"];
+                    foreach ($brands as $brand) : ?>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" class="brand-checkbox" value="<?php echo strtolower($brand); ?>">
+                            <span><?php echo $brand; ?></span>
+                        </label>
+                    <?php endforeach; ?>
+                </div>
+                <div class="flex justify-between mt-4">
+                    <button id="clearBrandFilter" class="border border-black px-4 py-2 text-black rounded-md">CLEAR</button>
+                    <button id="applyOtherFilter" class="bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-700 transition-all duration-200">APPLY</button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Type Filter -->
-    <div class="inline-block relative animate-fade-in-up">
-        <button id="filterDropdownBtn" class="border border-black px-4 py-2 rounded-md text-black font-bold flex items-center space-x-2 bg-white shadow hover:bg-teal-50 transition-all duration-200">
-            <i class="fa fa-filter text-teal-600"></i>
-            <span>TYPE (<span id="selectedCount">0</span>)</span>
-            <svg class="w-4 h-4 transition-transform duration-200" id="filterArrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-            </svg>
-        </button>
-        <div id="filterDropdown" class="hidden absolute bg-white border border-gray-300 shadow-2xl w-64 p-4 mt-2 rounded-xl z-50 animate-fade-in-up">
-            <span class="block text-gray-600 text-sm font-bold mb-2">Sort By:</span>
-            <div class="grid grid-cols-1 gap-2 mt-2">
-                <?php
-                $types = ["Primer", "Foundation", "Concealer", "Setting Powder", "Blush", "Highlighter", "Eyebrow pencil", "Lipstick", "Mascara", "Eyeshadow Palette", "Eyelinear", "Primer"];
-                $icons = [
-                    "Primer" => "fa-flask",
-                    "Foundation" => "fa-pump-soap",
-                    "Concealer" => "fa-magic",
-                    "Setting Powder" => "fa-cloud",
-                    "Blush" => "fa-brush",
-                    "Highlighter" => "fa-star",
-                    "Eyebrow pencil" => "fa-pen",
-                    "Lipstick" => "fa-lipstick",
-                    "Mascara" => "fa-eye",
-                    "Eyeshadow Palette" => "fa-palette",
-                    "Eyelinear" => "fa-pen-nib",
-                ];
-                foreach ($types as $type) : ?>
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" class="filter-checkbox" value="<?php echo strtolower($type); ?>">
-                        <i class="fa <?php echo $icons[$type] ?? 'fa-dot-circle'; ?> text-teal-400"></i>
-                        <span><?php echo $type; ?></span>
-                    </label>
-                <?php endforeach; ?>
-            </div>
-            <div class="flex justify-between mt-4">
-                <button id="clearFilter" class="border border-black px-4 py-2 text-black rounded-md hover:bg-teal-100 hover:text-teal-800 transition-all duration-200 shadow">CLEAR</button>
-                <button id="applyFilter" class="bg-black text-white px-4 py-2 rounded-md hover:bg-teal-700 transition-all duration-200 shadow">APPLY</button>
+        <!-- Type Filter -->
+        <div class="inline-block relative">
+            <button id="filterDropdownBtn" class="border border-black px-4 py-2 rounded-md text-black font-bold flex items-center space-x-2 bg-white shadow hover:bg-teal-50 transition-all duration-200">
+                <i class="fa fa-filter text-teal-500"></i>
+                <span>TYPE (<span id="selectedCount">0</span>)</span>
+                <svg class="w-4 h-4 transition-transform duration-200" id="filterArrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </button>
+            <div id="filterDropdown" class="hidden absolute bg-white border border-gray-300 shadow-lg w-64 p-4 mt-2 rounded-md z-50 animate-fade-in-up">
+                <span class="block text-gray-600 text-sm font-bold mb-2">Sort By:</span>
+                <div class="grid grid-cols-1 gap-2 mt-2">
+                    <?php
+                    $types = ["Primer", "Foundation", "Concealer", "Setting Powder", "Blush", "Highlighter", "Eyebrow pencil", "Lipstick", "Mascara", "Eyeshadow Palette", "Eyelinear", "Primer"];
+                    foreach ($types as $type) : ?>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" class="filter-checkbox" value="<?php echo strtolower($type); ?>">
+                            <span><?php echo $type; ?></span>
+                        </label>
+                    <?php endforeach; ?>
+                </div>
+                <div class="flex justify-between mt-4">
+                    <button id="clearFilter" class="border border-black px-4 py-2 text-black rounded-md">CLEAR</button>
+                    <button id="applyFilter" class="bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-700 transition-all duration-200">APPLY</button>
+                </div>
             </div>
         </div>
     </div>
@@ -110,7 +91,7 @@ $res = mysqli_query($conn, $sel);
                     </div>
                     <h3 class="text-2xl h-24 text-black font-semibold mt-2 mb-1"><?php echo $row['P_Name']; ?></h3>
                     <p class="text-teal-600 text-3xl md:text-4xl mt-2 font-bold">₹<?php echo $row['P_Price']; ?></p>
-                    <button class="add-to-cart hover:bg-teal-600 hover:tracking-wide mt-4 text-xl inline-block text-white bg-black rounded-lg cursor-pointer py-2 px-6">Add to Bag <i class="fa fa-arrow-right ml-2"></i></button>
+                    
                 </div>
             </div>
         <?php endwhile; ?>
@@ -178,7 +159,54 @@ $res = mysqli_query($conn, $sel);
 
 <?php include('footer.php'); ?>
 
+
 <script>
+
+    function normalizeBrand(value) {
+    return value
+        .toLowerCase()
+        .replace(/'/g, "")   // remove apostrophe
+        .trim();
+}
+
+
+    let selectedBrands = [];
+    let selectedTypes = [];
+
+
+
+
+    function applyCombinedFilter() {
+    const products = document.querySelectorAll('.product');
+    let visibleProducts = 0;
+
+    products.forEach(product => {
+        const productBrand = normalizeBrand(product.dataset.brand);
+        const productType = product.dataset.type.toLowerCase();
+
+        const brandMatch =
+            selectedBrands.length === 0 ||
+            selectedBrands.map(normalizeBrand).includes(productBrand);
+
+        const typeMatch =
+            selectedTypes.length === 0 ||
+            selectedTypes.includes(productType);
+
+        if (brandMatch && typeMatch) {
+            product.style.display = 'block';
+            visibleProducts++;
+        } else {
+            product.style.display = 'none';
+        }
+    });
+
+    document.getElementById('noProductMessage')
+        .classList.toggle('hidden', visibleProducts > 0);
+}
+
+
+
+
     document.getElementById('otherFilterBtn').addEventListener('click', function() {
         const panel = document.getElementById('otherFilterPanel');
         const arrow = document.getElementById('otherFilterArrow');
@@ -186,27 +214,38 @@ $res = mysqli_query($conn, $sel);
         arrow.classList.toggle('rotate-180');
     });
 
+    // document.getElementById('applyOtherFilter').addEventListener('click', function() {
+    //     let selectedBrands = [];
+    //     document.querySelectorAll('#otherFilterPanel input[type="checkbox"]:checked').forEach(checkbox => {
+    //         selectedBrands.push(checkbox.nextElementSibling.textContent.trim().toLowerCase());
+    //     });
+
+    //     let products = document.querySelectorAll('.product');
+    //     let visibleProducts = 0;
+    //     products.forEach(product => {
+    //         let productBrand = product.getAttribute('data-brand').trim().toLowerCase();
+    //         if (selectedBrands.length === 0 || selectedBrands.includes(productBrand)) {
+    //             product.style.display = 'block';
+    //             visibleProducts++;
+    //         } else {
+    //             product.style.display = 'none';
+    //         }
+    //     });
+
+    //     document.getElementById('otherFilterPanel').classList.add('hidden');
+    //     document.getElementById('noProductMessage').classList.toggle('hidden', visibleProducts > 0);
+    // });
+
     document.getElementById('applyOtherFilter').addEventListener('click', function() {
-        let selectedBrands = [];
-        document.querySelectorAll('#otherFilterPanel input[type="checkbox"]:checked').forEach(checkbox => {
-            selectedBrands.push(checkbox.nextElementSibling.textContent.trim().toLowerCase());
+        selectedBrands = [];
+
+        document.querySelectorAll('.brand-checkbox:checked').forEach(checkbox => {
+            selectedBrands.push(checkbox.value.toLowerCase());
         });
 
-        let products = document.querySelectorAll('.product');
-        let visibleProducts = 0;
-        products.forEach(product => {
-            let productBrand = product.getAttribute('data-brand').trim().toLowerCase();
-            if (selectedBrands.length === 0 || selectedBrands.includes(productBrand)) {
-                product.style.display = 'block';
-                visibleProducts++;
-            } else {
-                product.style.display = 'none';
-            }
-        });
-
-        document.getElementById('otherFilterPanel').classList.add('hidden');
-        document.getElementById('noProductMessage').classList.toggle('hidden', visibleProducts > 0);
+        applyCombinedFilter();
     });
+
 
     document.getElementById('clearBrandFilter').addEventListener('click', function() {
         document.querySelectorAll('.brand-checkbox').forEach(checkbox => checkbox.checked = false);
@@ -231,35 +270,59 @@ $res = mysqli_query($conn, $sel);
         arrow.classList.toggle('rotate-180');
     });
 
+    // document.getElementById('applyFilter').addEventListener('click', function() {
+    //     let selectedTypes = [];
+    //     document.querySelectorAll('.filter-checkbox:checked').forEach(checkbox => {
+    //         selectedTypes.push(checkbox.value.toLowerCase());
+    //     });
+
+    //     let products = document.querySelectorAll('.product');
+    //     let visibleProducts = 0;
+    //     products.forEach(product => {
+    //         let productType = product.getAttribute('data-type').toLowerCase();
+    //         if (selectedTypes.length === 0 || selectedTypes.includes(productType)) {
+    //             product.style.display = 'block';
+    //             visibleProducts++;
+    //         } else {
+    //             product.style.display = 'none';
+    //         }
+    //     });
+
+    //     document.getElementById('filterDropdown').classList.add('hidden');
+    //     document.getElementById('filterArrow').classList.remove('rotate-180');
+    //     document.getElementById('noProductMessage').classList.toggle('hidden', visibleProducts > 0);
+    // });
+
     document.getElementById('applyFilter').addEventListener('click', function() {
-        let selectedTypes = [];
+        selectedTypes = [];
+
         document.querySelectorAll('.filter-checkbox:checked').forEach(checkbox => {
             selectedTypes.push(checkbox.value.toLowerCase());
         });
 
-        let products = document.querySelectorAll('.product');
-        let visibleProducts = 0;
-        products.forEach(product => {
-            let productType = product.getAttribute('data-type');
-            if (selectedTypes.length === 0 || selectedTypes.includes(productType)) {
-                product.style.display = 'block';
-                visibleProducts++;
-            } else {
-                product.style.display = 'none';
-            }
-        });
+        applyCombinedFilter();
+    });
 
-        document.getElementById('filterDropdown').classList.add('hidden');
-        document.getElementById('filterArrow').classList.remove('rotate-180');
-        document.getElementById('noProductMessage').classList.toggle('hidden', visibleProducts > 0);
+
+    // document.getElementById('clearFilter').addEventListener('click', function() {
+    //     document.querySelectorAll('.filter-checkbox').forEach(checkbox => checkbox.checked = false);
+    //     document.querySelectorAll('.product').forEach(product => product.style.display = 'block');
+    //     updateFilterCount();
+    //     document.getElementById('noProductMessage').classList.add('hidden');
+    // });
+
+    document.getElementById('clearBrandFilter').addEventListener('click', function() {
+        selectedBrands = [];
+        document.querySelectorAll('.brand-checkbox').forEach(cb => cb.checked = false);
+        applyCombinedFilter();
     });
 
     document.getElementById('clearFilter').addEventListener('click', function() {
-        document.querySelectorAll('.filter-checkbox').forEach(checkbox => checkbox.checked = false);
-        document.querySelectorAll('.product').forEach(product => product.style.display = 'block');
-        updateFilterCount();
-        document.getElementById('noProductMessage').classList.add('hidden');
+        selectedTypes = [];
+        document.querySelectorAll('.filter-checkbox').forEach(cb => cb.checked = false);
+        applyCombinedFilter();
     });
+
 
     function updateFilterCount() {
         let selectedFilters = document.querySelectorAll('.filter-checkbox:checked').length;
@@ -388,15 +451,5 @@ $res = mysqli_query($conn, $sel);
     }
 
     document.querySelector('#logoutButton').addEventListener('click', logout);
-
-    window.addEventListener('scroll', function() {
-        const btn = document.getElementById('backToTopBtn');
-        if (window.scrollY > 300) {
-            btn.classList.remove('hidden');
-        } else {
-            btn.classList.add('hidden');
-        }
-    });
 </script>
-
 </html>

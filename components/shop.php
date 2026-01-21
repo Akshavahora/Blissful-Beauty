@@ -140,6 +140,52 @@ $res = mysqli_query($conn, $sel);
 <?php include('footer.php'); ?>
 
 <script>
+
+    function normalizeBrand(value) {
+    return value
+        .toLowerCase()
+        .replace(/'/g, "")   // remove apostrophe
+        .trim();
+}
+
+
+    let selectedBrands = [];
+    let selectedTypes = [];
+
+
+
+
+    function applyCombinedFilter() {
+    const products = document.querySelectorAll('.product');
+    let visibleProducts = 0;
+
+    products.forEach(product => {
+        const productBrand = normalizeBrand(product.dataset.brand);
+        const productType = product.dataset.type.toLowerCase();
+
+        const brandMatch =
+            selectedBrands.length === 0 ||
+            selectedBrands.map(normalizeBrand).includes(productBrand);
+
+        const typeMatch =
+            selectedTypes.length === 0 ||
+            selectedTypes.includes(productType);
+
+        if (brandMatch && typeMatch) {
+            product.style.display = 'block';
+            visibleProducts++;
+        } else {
+            product.style.display = 'none';
+        }
+    });
+
+    document.getElementById('noProductMessage')
+        .classList.toggle('hidden', visibleProducts > 0);
+}
+
+
+
+
     document.getElementById('otherFilterBtn').addEventListener('click', function() {
         const panel = document.getElementById('otherFilterPanel');
         const arrow = document.getElementById('otherFilterArrow');
@@ -147,27 +193,38 @@ $res = mysqli_query($conn, $sel);
         arrow.classList.toggle('rotate-180');
     });
 
+    // document.getElementById('applyOtherFilter').addEventListener('click', function() {
+    //     let selectedBrands = [];
+    //     document.querySelectorAll('#otherFilterPanel input[type="checkbox"]:checked').forEach(checkbox => {
+    //         selectedBrands.push(checkbox.nextElementSibling.textContent.trim().toLowerCase());
+    //     });
+
+    //     let products = document.querySelectorAll('.product');
+    //     let visibleProducts = 0;
+    //     products.forEach(product => {
+    //         let productBrand = product.getAttribute('data-brand').trim().toLowerCase();
+    //         if (selectedBrands.length === 0 || selectedBrands.includes(productBrand)) {
+    //             product.style.display = 'block';
+    //             visibleProducts++;
+    //         } else {
+    //             product.style.display = 'none';
+    //         }
+    //     });
+
+    //     document.getElementById('otherFilterPanel').classList.add('hidden');
+    //     document.getElementById('noProductMessage').classList.toggle('hidden', visibleProducts > 0);
+    // });
+
     document.getElementById('applyOtherFilter').addEventListener('click', function() {
-        let selectedBrands = [];
-        document.querySelectorAll('#otherFilterPanel input[type="checkbox"]:checked').forEach(checkbox => {
-            selectedBrands.push(checkbox.nextElementSibling.textContent.trim().toLowerCase());
+        selectedBrands = [];
+
+        document.querySelectorAll('.brand-checkbox:checked').forEach(checkbox => {
+            selectedBrands.push(checkbox.value.toLowerCase());
         });
 
-        let products = document.querySelectorAll('.product');
-        let visibleProducts = 0;
-        products.forEach(product => {
-            let productBrand = product.getAttribute('data-brand').trim().toLowerCase();
-            if (selectedBrands.length === 0 || selectedBrands.includes(productBrand)) {
-                product.style.display = 'block';
-                visibleProducts++;
-            } else {
-                product.style.display = 'none';
-            }
-        });
-
-        document.getElementById('otherFilterPanel').classList.add('hidden');
-        document.getElementById('noProductMessage').classList.toggle('hidden', visibleProducts > 0);
+        applyCombinedFilter();
     });
+
 
     document.getElementById('clearBrandFilter').addEventListener('click', function() {
         document.querySelectorAll('.brand-checkbox').forEach(checkbox => checkbox.checked = false);
@@ -192,35 +249,59 @@ $res = mysqli_query($conn, $sel);
         arrow.classList.toggle('rotate-180');
     });
 
+    // document.getElementById('applyFilter').addEventListener('click', function() {
+    //     let selectedTypes = [];
+    //     document.querySelectorAll('.filter-checkbox:checked').forEach(checkbox => {
+    //         selectedTypes.push(checkbox.value.toLowerCase());
+    //     });
+
+    //     let products = document.querySelectorAll('.product');
+    //     let visibleProducts = 0;
+    //     products.forEach(product => {
+    //         let productType = product.getAttribute('data-type').toLowerCase();
+    //         if (selectedTypes.length === 0 || selectedTypes.includes(productType)) {
+    //             product.style.display = 'block';
+    //             visibleProducts++;
+    //         } else {
+    //             product.style.display = 'none';
+    //         }
+    //     });
+
+    //     document.getElementById('filterDropdown').classList.add('hidden');
+    //     document.getElementById('filterArrow').classList.remove('rotate-180');
+    //     document.getElementById('noProductMessage').classList.toggle('hidden', visibleProducts > 0);
+    // });
+
     document.getElementById('applyFilter').addEventListener('click', function() {
-        let selectedTypes = [];
+        selectedTypes = [];
+
         document.querySelectorAll('.filter-checkbox:checked').forEach(checkbox => {
             selectedTypes.push(checkbox.value.toLowerCase());
         });
 
-        let products = document.querySelectorAll('.product');
-        let visibleProducts = 0;
-        products.forEach(product => {
-            let productType = product.getAttribute('data-type').toLowerCase();
-            if (selectedTypes.length === 0 || selectedTypes.includes(productType)) {
-                product.style.display = 'block';
-                visibleProducts++;
-            } else {
-                product.style.display = 'none';
-            }
-        });
+        applyCombinedFilter();
+    });
 
-        document.getElementById('filterDropdown').classList.add('hidden');
-        document.getElementById('filterArrow').classList.remove('rotate-180');
-        document.getElementById('noProductMessage').classList.toggle('hidden', visibleProducts > 0);
+
+    // document.getElementById('clearFilter').addEventListener('click', function() {
+    //     document.querySelectorAll('.filter-checkbox').forEach(checkbox => checkbox.checked = false);
+    //     document.querySelectorAll('.product').forEach(product => product.style.display = 'block');
+    //     updateFilterCount();
+    //     document.getElementById('noProductMessage').classList.add('hidden');
+    // });
+
+    document.getElementById('clearBrandFilter').addEventListener('click', function() {
+        selectedBrands = [];
+        document.querySelectorAll('.brand-checkbox').forEach(cb => cb.checked = false);
+        applyCombinedFilter();
     });
 
     document.getElementById('clearFilter').addEventListener('click', function() {
-        document.querySelectorAll('.filter-checkbox').forEach(checkbox => checkbox.checked = false);
-        document.querySelectorAll('.product').forEach(product => product.style.display = 'block');
-        updateFilterCount();
-        document.getElementById('noProductMessage').classList.add('hidden');
+        selectedTypes = [];
+        document.querySelectorAll('.filter-checkbox').forEach(cb => cb.checked = false);
+        applyCombinedFilter();
     });
+
 
     function updateFilterCount() {
         let selectedFilters = document.querySelectorAll('.filter-checkbox:checked').length;

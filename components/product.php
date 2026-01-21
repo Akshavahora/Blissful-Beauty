@@ -49,31 +49,31 @@ function getColorNameFromAPI($hex)
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
-        .product-gradient {
+        /* .product-gradient {
             background: linear-gradient(120deg, #f0fdfa 0%, #fdf2f8 100%);
             min-height: 100vh;
-        }
+        } */
 
-        .product-card {
+        /* .product-card {
             box-shadow: 0 8px 32px 0 rgba(16, 185, 129, 0.10);
             border-radius: 2rem;
             border: 2px solid #e0e7ef;
             background: #fff;
             transition: box-shadow 0.2s, border-color 0.2s;
-        }
+        } */
 
         .product-card:hover {
             box-shadow: 0 12px 40px 0 rgba(16, 185, 129, 0.18);
             border-color: #14b8a6;
         }
 
-        .product-image {
+        /* .product-image {
             border-radius: 1.5rem;
             box-shadow: 0 4px 16px 0 rgba(16, 185, 129, 0.10);
             border: 2px solid #e0e7ef;
             background: #fff;
             transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
-        }
+        } */
 
         .product-image:hover {
             box-shadow: 0 8px 32px 0 rgba(16, 185, 129, 0.18);
@@ -135,16 +135,20 @@ function getColorNameFromAPI($hex)
     </style>
 </head>
 
-<body class="product-gradient s">
+<body class="min-h-screen bg-gradient-to-br from-teal-50 to-pink-50 s">
     <main class="container mx-auto py-12 flex flex-col items-center min-h-screen">
-        <div class="w-full max-w-5xl product-card p-8 flex flex-col md:flex-row gap-10">
+        <div class="w-full max-w-5xl bg-white border-2 border-gray-200 rounded-[2rem] shadow-lg hover:shadow-xl transition p-8 flex flex-col md:flex-row gap-10">
             <!-- Product Image Section -->
             <div class="w-full md:w-1/2 flex flex-col gap-4 items-center justify-center">
                 <div class="grid grid-cols-2 gap-4">
-                    <img id="product-img-1" class="w-44 h-44 md:w-64 md:h-64 product-image object-cover" src='../admin/components/uploads/<?php echo $product['image_1']; ?>' alt="Product Image">
-                    <img id="product-img-2" class="w-44 h-44 md:w-64 md:h-64 product-image object-cover" src='../admin/components/uploads/<?php echo $product['image_2']; ?>' alt="Product Image">
-                    <img id="product-img-3" class="w-44 h-44 md:w-64 md:h-64 product-image object-cover" src='../admin/components/uploads/<?php echo $product['image_3']; ?>' alt="Product Image">
-                    <img id="product-img-4" class="w-44 h-44 md:w-64 md:h-64 product-image object-cover" src='../admin/components/uploads/<?php echo $product['image_4']; ?>' alt="Product Image">
+                    <img id="product-img-1" class="w-44 h-44 md:w-64 md:h-64 w-44 h-44 md:w-64 md:h-64 object-cover rounded-2xl 
+border-2 border-gray-200 shadow-md hover:shadow-xl hover:scale-105 transition object-cover" src='../admin/components/uploads/<?php echo $product['image_1']; ?>' alt="Product Image">
+                    <img id="product-img-2" class="w-44 h-44 md:w-64 md:h-64 w-44 h-44 md:w-64 md:h-64 object-cover rounded-2xl 
+border-2 border-gray-200 shadow-md hover:shadow-xl hover:scale-105 transition object-cover" src='../admin/components/uploads/<?php echo $product['image_2']; ?>' alt="Product Image">
+                    <img id="product-img-3" class="w-44 h-44 md:w-64 md:h-64 w-44 h-44 md:w-64 md:h-64 object-cover rounded-2xl 
+border-2 border-gray-200 shadow-md hover:shadow-xl hover:scale-105 transition object-cover" src='../admin/components/uploads/<?php echo $product['image_3']; ?>' alt="Product Image">
+                    <img id="product-img-4" class="w-44 h-44 md:w-64 md:h-64 w-44 h-44 md:w-64 md:h-64 object-cover rounded-2xl 
+border-2 border-gray-200 shadow-md hover:shadow-xl hover:scale-105 transition object-cover" src='../admin/components/uploads/<?php echo $product['image_4']; ?>' alt="Product Image">
                 </div>
             </div>
             <!-- Product Details -->
@@ -161,7 +165,7 @@ function getColorNameFromAPI($hex)
                             $hexColor = $shade['shade'];
                             $colorName = getColorNameFromAPI($hexColor);
                         ?>
-                            <div class="shade-option cursor-pointer rounded-full w-12 h-12 flex items-center justify-center border-2 border-gray-300 relative focus:outline-none"
+                            <div class="shade-option cursor-pointer rounded-full w-12 h-12 border-2 border-gray-300 transition focus:outline-none hover:ring-2 hover:ring-teal-300 cursor-pointer rounded-full w-12 h-12 flex items-center justify-center border-2 border-gray-300 relative focus:outline-none"
                                 style="background-color: <?php echo $hexColor; ?>;"
                                 title="<?php echo $colorName; ?>"
                                 data-shade-id="<?php echo $shade['id']; ?>"
