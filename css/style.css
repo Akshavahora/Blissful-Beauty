@@ -71,25 +71,6 @@ header .navbar div.active {
     color: white;
 }
 
-/* header .icons i,
-header .icons a {
-    cursor: pointer;
-    margin-left: .5rem;
-    height: 4.5rem;
-    line-height: 4.5rem;
-    width: 4.5rem;
-    text-align: center;
-    font-size: 1.7rem;
-    color: var(--black);
-    border-radius:  50%;
-    background-color: #eee;
-} */
-
-/* header .icons i:hover,
-header .icons a:hover {
-    color: var(--white);
-    background: var(--teal);
-} */
 
 header .icons #menu-bars {
     display: none;
@@ -164,121 +145,36 @@ header .icons #menu-bars {
   #userDropdownMenu a:hover {
     background-color: #f1f1f1;
   }
-  
-.home .home-slider .slide{
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 2rem;
-    padding-top: 1rem;
-}
 
+ @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
 
-.home .home-slider .slide .content{
-    flex: 1 1 45rem;
-}
+            to {
+                opacity: 1;
+            }
+        }
 
-.home .home-slider .slide .image{
-    flex: 1 1 45rem;
-    background: none;
-}
+        .animate-fade-in {
+            animation: fade-in 1s ease;
+        }
 
-.home .home-slider .slide .image img {
-    width: 100%;  /*90% instead of 100%*/
-}
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
 
-.home .home-slider .slide .content span{
-    color: var(--teal);
-    font-size: 2.5rem;
-}
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-.home .home-slider .slide .content > h3{
-    color: var(--black);
-    font-size: 7rem;
-}
-
-.home .home-slider .slide .content p{
-    /* color: var(--lightgreen); */
-    color: #000302;
-    font-size: 2.2rem;
-    padding: .5rem 0;
-    line-height: 1.5;
-}
-
-.swiper-pagination-bullet-active {
-    background: var(--teal);
-}
-
-
-
-
-.Products .box-container .box:hover .fa-heart {
-    right: 1.5rem;
-}
-
-.Products .box-container .box:hover .fa-eye {
-    left: 1.5rem;
-}
-
-.Products .box-container .box img{
-    height: 17rem;
-    margin: 1rem 0;
-    animation: fadeIn .2s linear;
-}
-
-.Products .box-container .box h3 {
-    color: var(--black);
-    /* font-size: 2.5rem;    */
-}
-
-.Products .box-container{
-    animation: appear linear;
-    animation-timeline: view();
-    animation-range: entry 0% cover 40%;
-}
-
-.Gallery .box-container .box img{
-    height: 17rem;
-    margin: 1rem 0;
-    animation: fadeIn .2s linear;
-}
-
-
-.circle-container {
-    margin: 20px;
-}
-.circle {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    margin: 10px;
-    border-radius: 50%;
-    background-color: #ccc;
-    cursor: pointer;
-    border: 2px solid transparent;
-}
-.circle.active {
-    border-color: #333;
-    background-color: #666;
-}
-.image-grid {
-    display: none;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    margin: 20px auto;
-    width: 60%;
-}
-.image-grid img {
-    width: 100%;
-    border-radius: 5px;
-}
-.image-grid.active {
-    display: grid;
-}
-
-
-
-
+        .animate-fade-in-up {
+            animation: fade-in-up 1s ease;
+        }
 
 
 
@@ -372,6 +268,14 @@ header .icons #menu-bars {
 
     .home .home-slider .slide .content h3{
         font-size: 5rem;
+    }
+    input {
+        font-size: 0.95rem;
+    }
+
+    button {
+        font-size: 1rem;
+        padding: 0.75rem;
     }
 }
 

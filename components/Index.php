@@ -16,42 +16,12 @@ include('./header.php');
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-    <!-- Tailwind / Your CSS -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="css/style.css">
 
     <!-- google font link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
-        @keyframes fade-in {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        .animate-fade-in {
-            animation: fade-in 1s ease;
-        }
-
-        @keyframes fade-in-up {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-fade-in-up {
-            animation: fade-in-up 1s ease;
-        }
-
         .home-slider .swiper-slide {
             display: flex;
             align-items: center;
@@ -113,33 +83,50 @@ include('./header.php');
         <div class="swiper mySwiper pt-12">
             <div class="swiper-wrapper">
                 <?php while ($row = mysqli_fetch_assoc($result)) { ?>
-                    <div class="swiper-slide">
-                        <div class="flex flex-col-reverse md:flex-row items-center justify-between gap-10 w-full">
+                    <div class="swiper-slide h-full">
+                        <div class="flex flex-row md:flex-row items-center justify-between gap-12 w-full h-full">
+
                             <!-- CONTENT -->
-                            <div class="w-full md:w-1/2 text-center md:text-left">
-                                <span class="text-pink-500 font-semibold text-4xl">New Arrival</span>
-                                <h3 class="text-5xl md:text-4xl font-bold mt-3">
+                            <div class="w-full md:w-1/2 h-full flex flex-col justify-center text-center md:text-left">
+
+                                <!-- Badge -->
+                                <span class="inline-block text-pink-500 font-semibold text-4xl tracking-wide mb-6">
+                                    New Arrival
+                                </span>
+
+                                <!-- Product Name (MAX Focus) -->
+                                <h3 class="text-2xl md:text-6xl lg:text-7xl font-extrabold leading-tight text-gray-900 mb-6">
                                     <?php echo $row['P_Name']; ?>
                                 </h3>
-                                <p class="mt-4 text-gray-600 text-2xl">
+
+                                <!-- Description -->
+                                <p class="text-gray-600 text-xl md:text-2xl leading-relaxed max-w-xl mb-8">
                                     <?php echo $row['P_Description']; ?>
                                 </p>
+
+                                <!-- CTA -->
                                 <a href="product.php?id=<?php echo $row['P_Id']; ?>"
-                                    class="inline-block mt-6 bg-black text-white px-10 py-3 rounded-lg hover:bg-[#008080] transition">
-                                    Order Now <i class="fa fa-arrow-right ml-2"></i>
+                                    class="inline-flex items-center gap-3 w-fit bg-black text-white px-12 py-4 rounded-xl text-lg font-semibold
+                      hover:bg-[#008080] hover:scale-105 transition-all duration-300 shadow-xl">
+                                    Order Now
+                                    <i class="fa fa-arrow-right"></i>
                                 </a>
+
                             </div>
+
                             <!-- IMAGE -->
-                            <div class="w-full md:w-1/2 flex justify-center">
+                            <div class="w-full md:w-1/2 h-full flex items-center justify-center">
                                 <img src="../admin/components/uploads/<?php echo $row['image_1']; ?>"
                                     alt="<?php echo $row['P_Name']; ?>"
-                                    class="max-w-full h-auto object-contain">
+                                    class="max-h-[80%] w-auto object-contain drop-shadow-2xl">
                             </div>
+
                         </div>
                     </div>
+
                 <?php } ?>
             </div>
-            
+
             <div class="swiper-pagination"></div>
         </div>
     </section>
@@ -152,7 +139,7 @@ include('./header.php');
     ?>
     <section class="Products px-4 md:px-36 pt-32 pb-16 animate-fade-in-up bg-gradient-to-br from-teal-50 via-white to-teal-100 rounded-3xl shadow-md mb-16" id="Products">
         <h1 class="heading text-center text-teal-700 text-[2.5rem] md:text-[3rem] pb-8 uppercase font-extrabold tracking-wide animate-fade-in">Top-rated</h1>
-        <div class="box-container grid grid-cols-1 sm:grid-cols-2 gap-9 lg:grid-cols-4 md:grid-cols-4 animate-fade-in-up">
+        <div class="box-container grid grid-cols-2 gap-9 lg:grid-cols-4 md:grid-cols-4 animate-fade-in-up">
             <?php while ($row = mysqli_fetch_assoc($res)) : ?>
                 <?php $productType = isset($row['type']) ? strtolower($row['type']) : 'unknown'; ?>
                 <div class="product" data-id="<?php echo $row['P_Id']; ?>" data-brand="<?php echo strtolower($row['P_Category']); ?>" data-type="<?php echo $productType; ?>">
@@ -160,14 +147,21 @@ include('./header.php');
                         <span class="absolute top-2 left-2 bg-teal-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow">Top</span>
                         <a href="#" class="fas fa-heart absolute top-6 right-6 rounded-full h-10 w-10 text-2xl text-black flex items-center justify-center wishlist-button transition-all duration-200"></a>
                         <a href="product.php?id=<?php echo $row['P_Id']; ?>" class="fas fa-eye absolute top-6 left-6 rounded-full h-10 w-10 text-2xl text-black flex items-center justify-center  transition-all duration-200"></a>
-                        <img class="w-full h-full p-2 rounded-lg shadow" src='../admin/components/uploads/<?php echo $row['image_1']; ?>' alt="Product Image">
+                        <a href="product.php?id=<?php echo $row['P_Id']; ?>">
+                            <img class="w-full h-full p-2 rounded-lg shadow" src='../admin/components/uploads/<?php echo $row['image_1']; ?>' alt="Product Image">
+                        </a>
                         <h3 class="text-xl text-teal-700 h-24 font-semibold mt-2 mb-1"><?php echo $row['P_Name']; ?></h3>
                         <p class="text-teal-500 text-3xl md:text-4xl mt-2 font-bold">₹<?php echo $row['P_Price']; ?></p>
                     </div>
                 </div>
             <?php endwhile; ?>
         </div>
-        <a href="./top_rated.php"><button class="hover:bg-teal-500 hover:tracking-wide mt-4 text-xl inline-block text-white bg-black rounded-lg cursor-pointer py-2 px-6 transition-all duration-200 shadow-md">Explore More <i class="fa fa-arrow-right ml-2"></i></button></a>
+        <div class="flex justify-center items-center w-full mt-6">
+            <a href="./top_rated.php">
+                <button class="hover:bg-teal-500 hover:tracking-wide text-xl inline-block text-white bg-black rounded-lg cursor-pointer py-2 px-6 transition-all duration-200 shadow-md">Explore More <i class="fa fa-arrow-right ml-2"></i>
+                </button>
+            </a>
+        </div>
     </section>
     <!-- Top-rated section ends -->
 
@@ -178,7 +172,7 @@ include('./header.php');
     ?>
     <section class="Products px-4 md:px-36 pt-32 pb-16 animate-fade-in-up bg-gradient-to-br from-teal-50 via-white to-teal-100 rounded-3xl shadow-md mb-16" id="Products">
         <h1 class="heading text-center text-teal-700 text-[2.5rem] md:text-[3rem] pb-8 uppercase font-extrabold tracking-wide animate-fade-in">New Arrivals</h1>
-        <div class="box-container grid grid-cols-1 sm:grid-cols-2 gap-9 lg:grid-cols-4 md:grid-cols-4 animate-fade-in-up">
+        <div class="box-container grid grid-cols-2 gap-9 lg:grid-cols-4 md:grid-cols-4 animate-fade-in-up">
             <?php while ($row = mysqli_fetch_assoc($res)) : ?>
                 <?php $productType = isset($row['type']) ? strtolower($row['type']) : 'unknown'; ?>
                 <div class="product" data-id="<?php echo $row['P_Id']; ?>" data-brand="<?php echo strtolower($row['P_Category']); ?>" data-type="<?php echo $productType; ?>">
@@ -186,16 +180,35 @@ include('./header.php');
                         <span class="absolute top-2 left-2 bg-teal-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow">New</span>
                         <a href="#" class="fas fa-heart absolute top-6 right-6 rounded-full h-10 w-10 text-2xl text-black flex items-center justify-center wishlist-button transition-all duration-200"></a>
                         <a href="product.php?id=<?php echo $row['P_Id']; ?>" class="fas fa-eye absolute top-6 left-6 rounded-full h-10 w-10 text-2xl text-black flex items-center justify-center  transition-all duration-200"></a>
-                        <div class="image-container flex items-center justify-center h-full p-2">
-                            <img class="max-w-full max-h-full rounded-lg shadow" src='../admin/components/uploads/<?php echo $row['image_1']; ?>' alt="Product Image">
-                        </div>
+                        <!-- <a href="product.php?id=<?php echo $row['P_Id']; ?>">
+                            <img class="max-w-full max-h-full rounded-lg shadow " src='../admin/components/uploads/<?php echo $row['image_1']; ?>' alt="Product Image">
+                        </a> -->
+                        <a href="product.php?id=<?php echo $row['P_Id']; ?>" 
+   class="block w-full h-80 flex items-center justify-center bg-white rounded-xl overflow-hidden">
+    
+    <img 
+        src="../admin/components/uploads/<?php echo $row['image_1']; ?>" 
+        alt="Product Image"
+        class="h-full w-auto object-contain rounded-lg shadow"
+    >
+
+</a>
+
                         <h3 class="text-xl text-teal-700 h-24 font-semibold mt-2 mb-1"><?php echo $row['P_Name']; ?></h3>
                         <p class="text-teal-500 text-3xl md:text-4xl mt-2 font-bold">₹<?php echo $row['P_Price']; ?></p>
                     </div>
                 </div>
             <?php endwhile; ?>
         </div>
-        <a href="./new_arrivals.php"><button class="hover:bg-teal-500 hover:tracking-wide mt-4 text-xl inline-block text-white bg-black rounded-lg cursor-pointer py-2 px-6 transition-all duration-200 shadow-md">Explore More <i class="fa fa-arrow-right ml-2"></i></button></a>
+
+        <div class="flex justify-center items-center w-full mt-6">
+            <a href="./new_arrivals.php">
+                <button class="hover:bg-teal-500 hover:tracking-wide text-xl inline-block text-white bg-black rounded-lg cursor-pointer py-2 px-6 transition-all duration-200 shadow-md">
+                    Explore More <i class="fa fa-arrow-right ml-2"></i>
+                </button>
+            </a>
+        </div>
+
     </section>
     <!-- New Arrivals section ends -->
 
@@ -208,7 +221,7 @@ include('./header.php');
                 <h6 class="p-1 mt-2 rounded-md bg-red-100 text-[#088178]">Free Shipping</h6>
             </div>
             <div class="fe-box p-4 h-64 w-64 text-center shadow-xl shadow-gray-300 border-2 hover:border-teal-400 rounded-2xl mt-4 mb-4 hover:shadow-md hover:border-gray-100 bg-white transition-all duration-300 animate-fade-in-up">
-                <img src="../Images/features/f2.png" alt="Online Order" class="w-full mb-4">
+                <img src="../Images/features/f2.png" alt="Online Order" class="w-fullh-64 mb-4">
                 <h6 class="p-1 mt-2 rounded-md bg-[#cdebbc] text-[#088178]">Online Order</h6>
             </div>
             <div class="fe-box p-4 h-64 w-64 text-center shadow-xl shadow-gray-300 border-2 hover:border-teal-400 rounded-2xl mt-4 mb-4 hover:shadow-md hover:border-gray-100 bg-white transition-all duration-300 animate-fade-in-up">
@@ -383,7 +396,7 @@ include('./header.php');
                     el: ".swiper-pagination",
                     clickable: true,
                 },
-               
+
             });
         });
     </script>

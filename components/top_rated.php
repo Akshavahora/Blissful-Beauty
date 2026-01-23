@@ -80,7 +80,7 @@ $res = mysqli_query($conn, $sel);
         </div>
     </div>
 
-    <div class="box-container grid grid-cols-1 sm:grid-cols-2 gap-9 lg:grid-cols-4 md:grid-cols-4 animate-fade-in-up" data-id="1">
+    <div class="box-container grid grid-cols-2 gap-9 lg:grid-cols-4 md:grid-cols-4 animate-fade-in-up" data-id="1">
         <?php while ($row = mysqli_fetch_assoc($res)) : ?>
             <div class="product" data-id="<?php echo $row['P_Id']; ?>" data-brand="<?php echo strtolower($row['P_Category']); ?>" data-type="<?php echo strtolower($row['P_Product']); ?>">
                 <div class="box p-6 bg-white overflow-hidden shadow-lg rounded-2xl border border-opacity-20 text-center relative hover:shadow-2xl hover:scale-105 hover:border-teal-600 border transition-all duration-300 cursor-pointer animate-fade-in-up">

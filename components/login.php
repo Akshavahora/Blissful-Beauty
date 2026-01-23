@@ -12,6 +12,9 @@ $isLoggedIn = isset($_SESSION['Email']);
     <title>Login</title>
     <!-- tailwind css link  -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- external style link -->
+     <link rel="stylesheet" href="css/style.css">
+    <!-- font awesome link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         .glass {
@@ -69,26 +72,28 @@ $isLoggedIn = isset($_SESSION['Email']);
 </head>
 
 <body class="min-h-screen flex items-stretch bg-gradient-to-br from-teal-100 via-pink-50 to-yellow-100 relative overflow-hidden">
-    <div class="flex flex-1 w-full min-h-screen">
-        <!-- Left: Image -->
-        <div class="hidden md:block md:w-1/2 relative login-image-bg">
-            <div class="login-image-overlay"></div>
-            <div class="absolute inset-0 flex flex-col items-center justify-center z-10">
-                <img src="../Images/B.png" alt="Brand Logo" class="h-24 w-24 rounded-full shadow-xl border-4 border-white bg-white/80 mb-6">
-                <h2 class="text-4xl font-extrabold text-white drop-shadow-lg text-center mb-2">Welcome to <span class="text-teal-200">Cosmetic Store</span></h2>
-                <p class="text-lg text-white/90 text-center max-w-xs">Discover the best in beauty, curated just for you.</p>
-            </div>
-        </div>
-        <!-- Mobile Image -->
-        <div class="md:hidden w-full login-image-bg relative">
-            <div class="login-image-overlay"></div>
-            <div class="absolute inset-0 flex flex-col items-center justify-center z-10">
-                <img src="../Images/B.png" alt="Brand Logo" class="h-16 w-16 rounded-full shadow-xl border-4 border-white bg-white/80 mb-3 mt-6">
-                <h2 class="text-2xl font-extrabold text-white drop-shadow-lg text-center mb-1">Welcome to <span class="text-teal-200">Cosmetic Store</span></h2>
-            </div>
-        </div>
+    <div class="flex flex-row w-full min-h-screen">
+        <!-- Left: Image (ALL screens) -->
+<div class="w-1/2 relative login-image-bg">
+    <div class="login-image-overlay"></div>
+
+    <div class="absolute inset-0 flex flex-col items-center justify-center z-10 px-4">
+        <img src="../Images/B.png"
+             alt="Brand Logo"
+             class="h-16 w-16 md:h-24 md:w-24 rounded-full shadow-xl border-4 border-white bg-white/80 mb-4">
+
+        <h2 class="text-xl md:text-4xl font-extrabold text-white drop-shadow-lg text-center mb-2">
+            Welcome to <span class="text-teal-200">Cosmetic Store</span>
+        </h2>
+
+        <p class="hidden md:block text-lg text-white/90 text-center max-w-xs">
+            Discover the best in beauty, curated just for you.
+        </p>
+    </div>
+</div>
+
         <!-- Right: Login Card -->
-        <div class="flex flex-col justify-center items-center flex-1 md:w-1/2 z-20 relative">
+        <div class="flex flex-col justify-center items-center w-1/2 z-20 relative">
             <div class="w-full max-w-md glass rounded-3xl shadow-2xl p-8 border-t-4 border-teal-400 mx-4 my-8">
                 <div class="flex justify-center mb-4 md:hidden">
                     <img src="../Images/B.png" alt="Logo" class="h-12 w-12 rounded-full shadow-lg border-2 border-teal-400 bg-white">

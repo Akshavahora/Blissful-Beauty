@@ -10,31 +10,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <style>
-    .swiper {
-      width: 100%;
-      padding-top: 50px;
-      padding-bottom: 50px;
-    }
-
-    .swiper-slide img {
-      display: block;
-      width: 100%;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-
-      to {
-        opacity: 1;
-      }
-    }
-
-    .fade-in {
-      animation: fadeIn .5s ease-in;
-    }
-
+    /* Dropdown Menu Styles */
     .user-btn:hover+#userDropdownMenu,
     #userDropdownMenu.show {
       display: block;
@@ -62,10 +38,9 @@
     </nav>
 
     <div class="icons flex items-center space-x-2">
-      <i class="fas fa-bars text-xl p-3 bg-gray-200 rounded-full cursor-pointer hover:bg-teal-100 transition-all duration-200 md:hidden" id="menu-bars"></i>
 
       <!-- Search box -->
-      <div class="relative w-96">
+      <div class="relative w-96 m-4">
         <input type="text" id="searchBox" placeholder="Search product..."
           class="border border-gray-300 rounded-md px-4 py-2 w-full text-lg focus:outline-none focus:ring-2 focus:ring-[var(--teal)]"
           autocomplete="off">
@@ -75,6 +50,7 @@
         <div id="mainSearchResults" class="h-full overflow-y-auto"></div>
       </div>
 
+      <i class="fas fa-bars text-xl p-3 bg-gray-200 rounded-full cursor-pointer hover:bg-teal-100 transition-all duration-200 md:hidden" id="menu-bars"></i>
 
       <a href="./whishlist.php" class="fas fa-heart text-xl p-3 bg-gray-200 rounded-full hover:bg-teal-100 hover:text-teal-700 transition-all duration-200"></a>
 
