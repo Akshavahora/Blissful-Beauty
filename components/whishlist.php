@@ -30,46 +30,11 @@ if (!isset($_SESSION['Id'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/instantsearch.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <style>
-        body {
-            background: linear-gradient(120deg, #fdf2f8 0%, #f0fdfa 100%);
-            min-height: 100vh;
-        }
-
-        .wishlist-card {
-            transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
-        }
-
-        .wishlist-card:hover {
-            box-shadow: 0 8px 32px 0 rgba(236, 72, 153, 0.12);
-            border-color: #ec4899;
-            transform: translateY(-2px) scale(1.01);
-        }
-
-        .wishlist-heart {
-            position: absolute;
-            top: 0.75rem;
-            right: 0.75rem;
-            color: #ec4899;
-            font-size: 1.3rem;
-            background: #fff;
-            border-radius: 9999px;
-            box-shadow: 0 2px 8px rgba(236, 72, 153, 0.08);
-            padding: 0.2rem 0.5rem;
-            z-index: 2;
-        }
-
-        .empty-wishlist-illustration {
-            width: 90px;
-            margin: 0 auto 1rem auto;
-            display: block;
-        }
-    </style>
 </head>
 
-<body class="flex flex-col min-h-screen">
-    <section class="Wishlist px-4 md:px-32 pt-16 pb-16 flex flex-col items-center flex-1" id="Wishlist">
-        <h1 class="heading text-center text-pink-600 text-3xl md:text-5xl pb-10 uppercase font-extrabold tracking-wide">Wishlist</h1>
+<body class="flex flex-col min-h-screen bg-gradient-to-br from-pink-50 to-teal-50">
+    <section class="px-4 md:px-32 pt-16 pb-16 flex flex-col items-center flex-1" id="Wishlist">
+        <h1 class="text-center text-pink-600 text-3xl md:text-5xl pb-10 uppercase font-extrabold tracking-wide">Wishlist</h1>
         <div class="box-container grid grid-cols-1 sm:grid-cols-2 gap-12 lg:grid-cols-4 md:grid-cols-3 w-full max-w-full" id="wishlist-container">
             <?php if (isset($showAlert)): ?>
                 <script>
@@ -78,15 +43,15 @@ if (!isset($_SESSION['Id'])) {
                 </script>
             <?php elseif (empty($wishlist)): ?>
                 <div class="col-span-full flex flex-col items-center justify-center py-20 w-full">
-                    <img src="https://cdn.jsdelivr.net/gh/edent/SuperTinyIcons/images/svg/heart.svg" alt="Empty Wishlist" class="empty-wishlist-illustration">
+                    <img src="https://cdn.jsdelivr.net/gh/edent/SuperTinyIcons/images/svg/heart.svg" alt="Empty Wishlist" class="w-20 h-20 mb-4">
                     <p class="text-xl text-gray-500 font-semibold mb-2">Your wishlist is empty.</p>
                     <a href="./shop.php" class="text-pink-600 font-bold hover:underline text-xl">Go to Shop</a>
                 </div>
             <?php else: ?>
                 <?php foreach ($wishlist as $item): ?>
                     <div class="product" data-id="<?php echo $item['id']; ?>">
-                        <div class="box p-10 bg-white overflow-hidden shadow-2xl rounded-3xl border-2 border-gray-100 wishlist-card text-center relative hover:shadow-2xl hover:scale-105 cursor-pointer">
-                            <span class="wishlist-heart text-2xl"><i class="fas fa-heart"></i></span>
+                        <div class="p-10 bg-white overflow-hidden shadow-2xl rounded-3xl border-2 border-gray-100 transition-all duration-200 hover:shadow-2xl hover:scale-105 hover:border-pink-500 border-opacity-100 cursor-pointer text-center relative">
+                            <span class="absolute top-3 right-3 text-pink-500 text-2xl bg-white rounded-full p-2 shadow-md z-10"><i class="fas fa-heart"></i></span>
                             <div class="flex items-center justify-center mb-6">
                                 <div class="w-56 h-56 bg-gradient-to-br from-gray-100 to-pink-50 rounded-2xl flex items-center justify-center border border-gray-200 shadow-lg">
                                     <img class="max-w-full max-h-full object-contain rounded-xl" src="<?php echo $item['image']; ?>" alt="Product Image">
@@ -139,7 +104,7 @@ if (!isset($_SESSION['Id'])) {
                     wishlistContainer.innerHTML = '';
                     if (data.wishlist.length === 0) {
                         wishlistContainer.innerHTML = `<div class="col-span-full flex flex-col items-center justify-center py-12 w-full">
-                          <img src="https://cdn.jsdelivr.net/gh/edent/SuperTinyIcons/images/svg/heart.svg" alt="Empty Wishlist" class="empty-wishlist-illustration">
+                          <img src="https://cdn.jsdelivr.net/gh/edent/SuperTinyIcons/images/svg/heart.svg" alt="Empty Wishlist" class="w-20 h-20 mb-4">
                           <p class="text-base text-gray-500 font-semibold mb-2">Your wishlist is empty.</p>
                           <a href="./shop.php" class="text-pink-600 font-bold hover:underline text-base">Go to Shop</a>
                         </div>`;
@@ -149,8 +114,8 @@ if (!isset($_SESSION['Id'])) {
                             productDiv.classList.add('product');
                             productDiv.setAttribute('data-id', item.id);
                             productDiv.innerHTML = `
-                                <div class="box p-10 bg-white overflow-hidden shadow-2xl rounded-3xl border-2 border-gray-100 wishlist-card text-center relative hover:shadow-2xl hover:scale-105 cursor-pointer">
-                                    <span class="wishlist-heart text-2xl"><i class="fas fa-heart"></i></span>
+                                <div class="p-10 bg-white overflow-hidden shadow-2xl rounded-3xl border-2 border-gray-100 transition-all duration-200 hover:shadow-2xl hover:scale-105 hover:border-pink-500 border-opacity-100 cursor-pointer text-center relative">
+                                    <span class="absolute top-3 right-3 text-pink-500 text-2xl bg-white rounded-full p-2 shadow-md z-10"><i class="fas fa-heart"></i></span>
                                     <div class="flex items-center justify-center mb-6">
                                         <div class="w-56 h-56 bg-gradient-to-br from-gray-100 to-pink-50 rounded-2xl flex items-center justify-center border border-gray-200 shadow-lg">
                                             <img class="max-w-full max-h-full object-contain rounded-xl" src="${item.image}" alt="Product Image">

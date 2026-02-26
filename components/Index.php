@@ -180,19 +180,16 @@ include('./header.php');
                         <span class="absolute top-2 left-2 bg-teal-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow">New</span>
                         <a href="#" class="fas fa-heart absolute top-6 right-6 rounded-full h-10 w-10 text-2xl text-black flex items-center justify-center wishlist-button transition-all duration-200"></a>
                         <a href="product.php?id=<?php echo $row['P_Id']; ?>" class="fas fa-eye absolute top-6 left-6 rounded-full h-10 w-10 text-2xl text-black flex items-center justify-center  transition-all duration-200"></a>
-                        <!-- <a href="product.php?id=<?php echo $row['P_Id']; ?>">
-                            <img class="max-w-full max-h-full rounded-lg shadow " src='../admin/components/uploads/<?php echo $row['image_1']; ?>' alt="Product Image">
-                        </a> -->
-                        <a href="product.php?id=<?php echo $row['P_Id']; ?>" 
-   class="block w-full h-80 flex items-center justify-center bg-white rounded-xl overflow-hidden">
-    
-    <img 
-        src="../admin/components/uploads/<?php echo $row['image_1']; ?>" 
-        alt="Product Image"
-        class="h-full w-auto object-contain rounded-lg shadow"
-    >
 
-</a>
+                        <a href="product.php?id=<?php echo $row['P_Id']; ?>"
+                            class="block w-full h-80 flex items-center justify-center bg-white rounded-xl overflow-hidden">
+
+                            <img
+                                src="../admin/components/uploads/<?php echo $row['image_1']; ?>"
+                                alt="Product Image"
+                                class="h-full w-auto object-contain rounded-lg shadow">
+
+                        </a>
 
                         <h3 class="text-xl text-teal-700 h-24 font-semibold mt-2 mb-1"><?php echo $row['P_Name']; ?></h3>
                         <p class="text-teal-500 text-3xl md:text-4xl mt-2 font-bold">₹<?php echo $row['P_Price']; ?></p>
@@ -399,47 +396,62 @@ include('./header.php');
 
             });
         });
-    </script>
 
-    <script>
         // Function to add a product to the wishlist
         function addToWishlist(productId, productName, productPrice, productImage) {
-            const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-            const existingProduct = wishlist.find(item => item.id === productId);
-
-            if (!existingProduct) {
-                wishlist.push({
-                    id: productId,
-                    name: productName,
-                    price: productPrice,
-                    image: productImage
-                });
-                localStorage.setItem('wishlist', JSON.stringify(wishlist));
-                alert(productName + ' added to wishlist!');
-            } else {
-                alert(productName + ' is already in your wishlist!');
-            }
+    fetch('add_to_wishlist.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            productId,
+            productName,
+            productPrice,
+            productImage
+        }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert(`${productName} added to wishlist!`);
+        } else {
+            alert(`${productName} is already in your wishlist!`);
         }
-
+    });
+}
         // Add event listeners to "Add to Wishlist" buttons
         document.querySelectorAll('.wishlist-button').forEach(button => {
             button.addEventListener('click', (event) => {
                 event.preventDefault();
+
                 const isLoggedIn = <?php echo isset($_SESSION['Email']) ? 'true' : 'false'; ?>;
 
-                if (isLoggedIn) {
-                    const productElement = event.target.closest('.product');
-                    const productId = parseInt(productElement.getAttribute('data-id'));
-                    const productName = productElement.querySelector('h3').textContent;
-                    const productPrice = parseFloat(productElement.querySelector('p').textContent.replace('₹', ''));
-                    const productImage = productElement.querySelector('img').src;
-
-                    addToWishlist(productId, productName, productPrice, productImage);
-                } else {
+                if (!isLoggedIn) {
                     alert('Please log in first to add products to your wishlist.');
-                    window.location.href = 'login.php'; // Redirect to the login page
+                    window.location.href = 'login.php';
+                    return;
                 }
+
+                const productElement = event.target.closest('.product');
+
+                const productId = parseInt(productElement.getAttribute('data-id'));
+                const productName = productElement.querySelector('h3').textContent;
+                const productPrice = parseFloat(
+                    productElement.querySelector('p').textContent.replace('₹', '')
+                );
+                const productImage = productElement.querySelector('img').src;
+
+                addToWishlist(productId, productName, productPrice, productImage);
             });
+        });
+
+        // Toggle Filter Dropdown
+        document.getElementById('filterDropdownBtn')?.addEventListener('click', function() {
+            const dropdown = document.getElementById('filterDropdown');
+            const arrow = document.getElementById('filterArrow');
+            dropdown.classList.toggle('hidden');
+            arrow.classList.toggle('rotate-180');
         });
 
         // Toggle Other Filter Panel

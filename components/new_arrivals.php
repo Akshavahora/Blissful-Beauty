@@ -80,15 +80,15 @@ $res = mysqli_query($conn, $sel);
         </div>
     </div>
 
-    <div class="box-container grid grid-cols-1 sm:grid-cols-2 gap-9 lg:grid-cols-4 md:grid-cols-4 animate-fade-in-up" data-id="1">
+    <div class="box-container grid grid-cols-2 gap-9 lg:grid-cols-4 md:grid-cols-4 animate-fade-in-up" data-id="1">
         <?php while ($row = mysqli_fetch_assoc($res)) : ?>
             <div class="product" data-id="<?php echo $row['P_Id']; ?>" data-brand="<?php echo strtolower($row['P_Category']); ?>" data-type="<?php echo strtolower($row['P_Product']); ?>">
                 <div class="box p-6 bg-white overflow-hidden shadow-lg rounded-2xl border border-opacity-20 text-center relative hover:shadow-2xl hover:scale-105 hover:border-teal-600 border transition-all duration-300 cursor-pointer animate-fade-in-up">
                     <a href="product.php?id=<?php echo $row['P_Id']; ?>" class="fas fa-eye absolute top-6 left-6 rounded-full h-10 w-10 text-2xl text-black flex items-center justify-center white transition-all duration-200"></a>
                     <a href="#" class="fas fa-heart absolute top-6 right-6 rounded-full h-10 w-10 text-2xl text-black flex items-center justify-center wishlist-button transition-all duration-200"></a>
-                    <div class="image-container flex items-center justify-center h-full p-2">
-                        <img class="max-w-full max-h-full rounded-lg shadow" src='../admin/components/uploads/<?php echo $row['image_1']; ?>' alt="Product Image">
-                    </div>
+                    <a href="product.php?id=<?php echo $row['P_Id']; ?>" class="block w-full h-80 flex items-center justify-center bg-white rounded-xl overflow-hidden">
+                        <img class="h-full w-auto object-contain rounded-lg shadow" src='../admin/components/uploads/<?php echo $row['image_1']; ?>' alt="Product Image">
+                    </a>
                     <h3 class="text-2xl h-24 text-teal-700 font-semibold mt-2 mb-1"><?php echo $row['P_Name']; ?></h3>
                     <p class="text-teal-600 text-3xl md:text-4xl mt-2 font-bold">₹<?php echo $row['P_Price']; ?></p>
                     
@@ -96,6 +96,8 @@ $res = mysqli_query($conn, $sel);
             </div>
         <?php endwhile; ?>
     </div>
+
+    
     <div id="noProductMessage" class="flex flex-col items-center justify-center text-center text-teal-700 text-xl hidden mt-12 animate-fade-in-up">
         <img src="../Images/empty-box.png" alt="No Products" class="w-32 h-32 mx-auto mb-4 opacity-70">
         <span>No Product Added Yet</span>
@@ -214,28 +216,6 @@ $res = mysqli_query($conn, $sel);
         arrow.classList.toggle('rotate-180');
     });
 
-    // document.getElementById('applyOtherFilter').addEventListener('click', function() {
-    //     let selectedBrands = [];
-    //     document.querySelectorAll('#otherFilterPanel input[type="checkbox"]:checked').forEach(checkbox => {
-    //         selectedBrands.push(checkbox.nextElementSibling.textContent.trim().toLowerCase());
-    //     });
-
-    //     let products = document.querySelectorAll('.product');
-    //     let visibleProducts = 0;
-    //     products.forEach(product => {
-    //         let productBrand = product.getAttribute('data-brand').trim().toLowerCase();
-    //         if (selectedBrands.length === 0 || selectedBrands.includes(productBrand)) {
-    //             product.style.display = 'block';
-    //             visibleProducts++;
-    //         } else {
-    //             product.style.display = 'none';
-    //         }
-    //     });
-
-    //     document.getElementById('otherFilterPanel').classList.add('hidden');
-    //     document.getElementById('noProductMessage').classList.toggle('hidden', visibleProducts > 0);
-    // });
-
     document.getElementById('applyOtherFilter').addEventListener('click', function() {
         selectedBrands = [];
 
@@ -270,29 +250,6 @@ $res = mysqli_query($conn, $sel);
         arrow.classList.toggle('rotate-180');
     });
 
-    // document.getElementById('applyFilter').addEventListener('click', function() {
-    //     let selectedTypes = [];
-    //     document.querySelectorAll('.filter-checkbox:checked').forEach(checkbox => {
-    //         selectedTypes.push(checkbox.value.toLowerCase());
-    //     });
-
-    //     let products = document.querySelectorAll('.product');
-    //     let visibleProducts = 0;
-    //     products.forEach(product => {
-    //         let productType = product.getAttribute('data-type').toLowerCase();
-    //         if (selectedTypes.length === 0 || selectedTypes.includes(productType)) {
-    //             product.style.display = 'block';
-    //             visibleProducts++;
-    //         } else {
-    //             product.style.display = 'none';
-    //         }
-    //     });
-
-    //     document.getElementById('filterDropdown').classList.add('hidden');
-    //     document.getElementById('filterArrow').classList.remove('rotate-180');
-    //     document.getElementById('noProductMessage').classList.toggle('hidden', visibleProducts > 0);
-    // });
-
     document.getElementById('applyFilter').addEventListener('click', function() {
         selectedTypes = [];
 
@@ -302,14 +259,6 @@ $res = mysqli_query($conn, $sel);
 
         applyCombinedFilter();
     });
-
-
-    // document.getElementById('clearFilter').addEventListener('click', function() {
-    //     document.querySelectorAll('.filter-checkbox').forEach(checkbox => checkbox.checked = false);
-    //     document.querySelectorAll('.product').forEach(product => product.style.display = 'block');
-    //     updateFilterCount();
-    //     document.getElementById('noProductMessage').classList.add('hidden');
-    // });
 
     document.getElementById('clearBrandFilter').addEventListener('click', function() {
         selectedBrands = [];

@@ -32,7 +32,7 @@
 
     <nav class="navbar space-x-4">
       <a href="index.php" class="uppercase font-bold tracking-wide text-black hover:text-teal-700 border-b-2 border-transparent hover:border-teal-600 transition-all duration-200">home</a>
-      <a href="Shop.php" class="uppercase font-bold tracking-wide text-black hover:text-teal-700 border-b-2 border-transparent hover:border-teal-600 transition-all duration-200">Shop</a>
+      <a href="shop.php" class="uppercase font-bold tracking-wide text-black hover:text-teal-700 border-b-2 border-transparent hover:border-teal-600 transition-all duration-200">Shop</a>
       <a href="aboutus.php" class="uppercase font-bold tracking-wide text-black hover:text-teal-700 border-b-2 border-transparent hover:border-teal-600 transition-all duration-200">about us</a>
       <a href="contactus.php" class="uppercase font-bold tracking-wide text-black hover:text-teal-700 border-b-2 border-transparent hover:border-teal-600 transition-all duration-200">contact us</a>
     </nav>

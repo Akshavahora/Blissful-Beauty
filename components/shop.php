@@ -89,9 +89,9 @@ $res = mysqli_query($conn, $sel);
                 <div class="box p-6 bg-white overflow-hidden shadow-lg rounded-2xl border border-opacity-20 text-center relative hover:shadow-2xl hover:scale-105 hover:border-teal-400 border transition-all duration-300 cursor-pointer animate-fade-in-up">
                     <a href="#" class="fas fa-heart absolute top-6 right-6 rounded-full h-10 w-10 text-2xl text-black flex items-center justify-center wishlist-button transition-all duration-200"></a>
                     <a href="product.php?id=<?php echo $row['P_Id']; ?>" class="fas fa-eye absolute top-6 left-6 rounded-full h-10 w-10 text-2xl text-black flex items-center justify-center transition-all duration-200"></a>
-                    <div class="image-container flex items-center justify-center h-full p-2">
+                    <a href="product.php?id=<?php echo $row['P_Id']; ?>" class="block w-full h-80 flex items-center justify-center bg-white rounded-xl overflow-hidden">
                         <img class="max-w-full max-h-full rounded-lg shadow" src='../admin/components/uploads/<?php echo $row['image_1']; ?>' alt="Product Image">
-                    </div>
+                    </a>
                     <h3 class="text-2xl h-24 text-teal-700 font-semibold mt-2 mb-1"><?php echo $row['P_Name']; ?></h3>
                     <p class="text-teal-500 text-3xl md:text-4xl mt-2 font-bold">₹<?php echo $row['P_Price']; ?></p>
                 </div>
