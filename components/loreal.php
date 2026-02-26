@@ -53,16 +53,39 @@ $res = mysqli_query($conn, $sel);
     <div class="box-container grid grid-cols-1 sm:grid-cols-2 gap-9 lg:grid-cols-4 md:grid-cols-4 animate-fade-in-up" data-id="1">
         <?php while ($row = mysqli_fetch_assoc($res)) : ?>
             <div class="product" data-id="<?php echo $row['P_Id']; ?>" data-type="<?php echo strtolower($row['P_Product']); ?>">
-                <div class="box p-6 bg-white overflow-hidden shadow-lg rounded-2xl border border-opacity-20 text-center relative hover:shadow-2xl hover:scale-105 hover:border-yellow-600 border transition-all duration-300 cursor-pointer animate-fade-in-up">
+
+                <div class="box p-10 bg-white overflow-hidden shadow-xl rounded-2xl border border-opacity-20 text-center relative hover:shadow-2xl hover:scale-105 hover:border-yellow-600 transition-all duration-300 cursor-pointer animate-fade-in-up">
+
+                    <!-- Wishlist Icon -->
                     <a href="#" class="fas fa-heart absolute top-6 right-6 rounded-full h-10 w-10 text-2xl text-yellow-700 flex items-center justify-center wishlist-button transition-all duration-200"></a>
+
+                    <!-- View Icon -->
                     <a href="product.php?id=<?php echo $row['P_Id']; ?>" class="fas fa-eye absolute top-6 left-6 rounded-full h-10 w-10 text-2xl text-yellow-700 flex items-center justify-center transition-all duration-200"></a>
-                    <a href="product.php?id=<?php echo $row['P_Id']; ?>"
-                        class="block w-full h-80 flex items-center justify-center bg-white rounded-xl overflow-hidden"></a>
-                    <img class="max-w-full max-h-full rounded-lg shadow" src='../admin/components/uploads/<?php echo $row['image_1']; ?>' alt="Product Image">
+
+                    <!-- Image Container (Fixed Size Like First Div) -->
+                    <a href="product.php?id=<?php echo $row['P_Id']; ?>">
+                        <div class="flex items-center justify-center mb-6">
+                            <div class="w-72 h-72 bg-gray-50 rounded-2xl flex items-center justify-center border border-gray-200 shadow-lg">
+                                <img
+                                    class="max-w-full max-h-full object-contain rounded-xl"
+                                    src="../admin/components/uploads/<?php echo $row['image_1']; ?>"
+                                    alt="Product Image">
+                            </div>
+                        </div>
                     </a>
-                    <h3 class="text-2xl h-24 text-yellow-700 font-semibold mt-2 mb-1"><?php echo $row['P_Name']; ?></h3>
-                    <p class="text-yellow-600 text-3xl md:text-4xl mt-2 font-bold">₹<?php echo $row['P_Price']; ?></p>
+
+                    <!-- Product Name -->
+                    <h3 class="text-2xl h-24 text-yellow-700 font-semibold mt-2 mb-1">
+                        <?php echo $row['P_Name']; ?>
+                    </h3>
+
+                    <!-- Price -->
+                    <p class="text-yellow-600 text-3xl md:text-4xl mt-2 font-bold">
+                        ₹<?php echo $row['P_Price']; ?>
+                    </p>
+
                 </div>
+
             </div>
         <?php endwhile; ?>
     </div>

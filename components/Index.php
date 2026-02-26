@@ -146,7 +146,7 @@ include('./header.php');
                     <div class="box p-10 bg-white overflow-hidden shadow-xl rounded-2xl border border-opacity-20 text-center relative hover:shadow-2xl hover:scale-105 hover:border-teal-400 border transition-all duration-300 cursor-pointer animate-fade-in-up">
                         <span class="absolute top-2 left-2 bg-teal-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow">Top</span>
                         <a href="#" class="fas fa-heart absolute top-6 right-6 rounded-full h-10 w-10 text-2xl text-black flex items-center justify-center wishlist-button transition-all duration-200"></a>
-                        <a href="product.php?id=<?php echo $row['P_Id']; ?>" class="fas fa-eye absolute top-6 left-6 rounded-full h-10 w-10 text-2xl text-black flex items-center justify-center  transition-all duration-200"></a>
+                        <a href="product.php?id=<?php echo $row['P_Id']; ?>" class="fas fa-eye absolute top-6 left-6 rounded-full h-10 w-10 text-2xl text-black flex items-center justify-center transition-all duration-200"></a>
                         <a href="product.php?id=<?php echo $row['P_Id']; ?>">
                             <img class="w-full h-full p-2 rounded-lg shadow" src='../admin/components/uploads/<?php echo $row['image_1']; ?>' alt="Product Image">
                         </a>
