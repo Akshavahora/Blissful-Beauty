@@ -31,35 +31,21 @@ $res = mysqli_query($conn, $sel);
                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
             </svg>
         </button>
-        <div id="filterDropdown" class="hidden absolute bg-white border border-gray-300 shadow-2xl w-64 p-4 mt-2 rounded-xl z-50 animate-fade-in-up">
+        <div id="filterDropdown" class="hidden absolute bg-white border border-pink-200 shadow-2xl w-64 p-4 mt-2 rounded-xl z-50 animate-fade-in-up">
             <span class="block text-gray-600 text-sm font-bold mb-2">Sort By:</span>
             <div class="grid grid-cols-1 gap-2 mt-2">
                 <?php
                 $types = ["Primer", "Foundation", "Concealer", "Setting Powder", "Blush", "Highlighter", "Eyebrow pencil", "Lipstick", "Mascara", "Eyeshadow Palette", "Eyelinear", "Primer"];
-                $icons = [
-                    "Primer" => "fa-flask",
-                    "Foundation" => "fa-pump-soap",
-                    "Concealer" => "fa-magic",
-                    "Setting Powder" => "fa-cloud",
-                    "Blush" => "fa-brush",
-                    "Highlighter" => "fa-star",
-                    "Eyebrow pencil" => "fa-pen",
-                    "Lipstick" => "fa-lipstick",
-                    "Mascara" => "fa-eye",
-                    "Eyeshadow Palette" => "fa-palette",
-                    "Eyelinear" => "fa-pen-nib",
-                ];
                 foreach ($types as $type) : ?>
                     <label class="flex items-center space-x-2">
                         <input type="checkbox" class="filter-checkbox" value="<?php echo strtolower($type); ?>">
-                        <i class="fa <?php echo $icons[$type] ?? 'fa-dot-circle'; ?> text-black"></i>
                         <span><?php echo $type; ?></span>
                     </label>
                 <?php endforeach; ?>
             </div>
             <div class="flex justify-between mt-4">
-                <button id="clearFilter" class="border border-black px-4 py-2 text-black rounded-md hover:bg-gray-200 hover:text-gray-900 transition-all duration-200 shadow">CLEAR</button>
-                <button id="applyFilter" class="bg-black text-white px-4 py-2 rounded-md hover:bg-gray-900 transition-all duration-200 shadow">APPLY</button>
+                <button id="clearFilter" class="border border-pink-400 px-4 py-2 text-pink-600 rounded-md hover:bg-pink-100 hover:text-pink-800 transition-all duration-200 shadow">CLEAR</button>
+                <button id="applyFilter" class="bg-pink-600 text-white px-4 py-2 rounded-md hover:bg-pink-700 transition-all duration-200 shadow">APPLY</button>
             </div>
         </div>
     </div>
@@ -71,9 +57,9 @@ $res = mysqli_query($conn, $sel);
                     <a href="product.php?id=<?php echo $row['P_Id']; ?>" class="fas fa-eye absolute top-6 left-6 rounded-full h-10 w-10 text-2xl text-black flex items-center justify-center transition-all duration-200"></a>
                     <a href="#" class="fas fa-heart absolute top-6 right-6 rounded-full h-10 w-10 text-2xl text-black flex items-center justify-center wishlist-button transition-all duration-200"></a>
                     <a href="product.php?id=<?php echo $row['P_Id']; ?>"
-                            class="block w-full h-80 flex items-center justify-center bg-white rounded-xl overflow-hidden"></a>
+                         class="block w-full h-80 flex items-center justify-center bg-white rounded-xl overflow-hidden">
                         <img class="max-w-full max-h-full rounded-lg shadow" src='../admin/components/uploads/<?php echo $row['image_1']; ?>' alt="Product Image">
-        </a>
+                    </a>
                     <h3 class="text-2xl h-24 text-black font-semibold mt-2 mb-1"><?php echo $row['P_Name']; ?></h3>
                     <p class="text-gray-900 text-3xl md:text-4xl mt-2 font-bold">₹<?php echo $row['P_Price']; ?></p>
                 </div>

@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+// header location
+$content = '';
+require_once('header.php');
+
 if (!isset($_SESSION['Id'])) {
     // User is not logged in, set a flag to show the alert
     $showAlert = true;
@@ -54,7 +58,11 @@ if (!isset($_SESSION['Id'])) {
                             <span class="absolute top-3 right-3 text-pink-500 text-2xl bg-white rounded-full p-2 shadow-md z-10"><i class="fas fa-heart"></i></span>
                             <div class="flex items-center justify-center mb-6">
                                 <div class="w-56 h-56 bg-gradient-to-br from-gray-100 to-pink-50 rounded-2xl flex items-center justify-center border border-gray-200 shadow-lg">
-                                    <img class="max-w-full max-h-full object-contain rounded-xl" src="<?php echo $item['image']; ?>" alt="Product Image">
+                                    <a href="product.php?id=<?php echo $item['id']; ?>">
+                                        <img class="max-w-full max-h-full object-contain rounded-xl"
+                                            src="<?php echo $item['image']; ?>"
+                                            alt="Product Image">
+                                    </a>
                                 </div>
                             </div>
                             <h3 class="text-2xl font-bold text-gray-800 mb-2"><?php echo $item['name']; ?></h3>
@@ -67,58 +75,70 @@ if (!isset($_SESSION['Id'])) {
         </div>
     </section>
 
-    <script>
-        document.querySelectorAll('.remove-from-wishlist').forEach(button => {
-            button.addEventListener('click', (event) => {
-                const productElement = event.target.closest('.product');
-                const productId = parseInt(productElement.getAttribute('data-id'));
-                removeFromWishlist(productId);
-            });
+
+    <?php include("./footer.php"); ?>
+</body>
+
+<!-- Back to Top Button -->
+<button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" id="backToTopBtn" class="fixed bottom-8 right-8 z-50 bg-teal-500 text-white p-4 rounded-full shadow-lg hover:bg-teal-600 transition-all duration-200 hidden" title="Back to Top"><i class="fas fa-arrow-up"></i></button>
+
+<script>
+    document.querySelectorAll('.remove-from-wishlist').forEach(button => {
+        button.addEventListener('click', (event) => {
+            const productElement = event.target.closest('.product');
+            const productId = parseInt(productElement.getAttribute('data-id'));
+            removeFromWishlist(productId);
         });
+    });
 
-        function removeFromWishlist(productId) {
-            fetch('remove_from_wishlist.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        productId: productId
-                    }),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        displayWishlist();
-                    } else {
-                        console.error('Error removing item from wishlist:', data.message);
-                    }
-                });
-        }
+    function removeFromWishlist(productId) {
+        fetch('remove_from_wishlist.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    productId: productId
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    displayWishlist();
+                } else {
+                    console.error('Error removing item from wishlist:', data.message);
+                }
+            });
+    }
 
-        function displayWishlist() {
-            fetch('fetch_wishlist.php')
-                .then(response => response.json())
-                .then(data => {
-                    const wishlistContainer = document.getElementById('wishlist-container');
-                    wishlistContainer.innerHTML = '';
-                    if (data.wishlist.length === 0) {
-                        wishlistContainer.innerHTML = `<div class="col-span-full flex flex-col items-center justify-center py-12 w-full">
-                          <img src="https://cdn.jsdelivr.net/gh/edent/SuperTinyIcons/images/svg/heart.svg" alt="Empty Wishlist" class="w-20 h-20 mb-4">
-                          <p class="text-base text-gray-500 font-semibold mb-2">Your wishlist is empty.</p>
-                          <a href="./shop.php" class="text-pink-600 font-bold hover:underline text-base">Go to Shop</a>
-                        </div>`;
-                    } else {
-                        data.wishlist.forEach(item => {
-                            const productDiv = document.createElement('div');
-                            productDiv.classList.add('product');
-                            productDiv.setAttribute('data-id', item.id);
-                            productDiv.innerHTML = `
+    function displayWishlist() {
+        fetch('fetch_wishlist.php')
+            .then(response => response.json())
+            .then(data => {
+                const wishlistContainer = document.getElementById('wishlist-container');
+                wishlistContainer.innerHTML = '';
+                if (data.wishlist.length === 0) {
+                    wishlistContainer.innerHTML = `<div class="col-span-full flex flex-col items-center justify-center py-12 w-full">          
+                        <div class="flex flex-col items-center justify-center py-16">
+                            <i class="fa-solid fa-box text-6xl text-gray-300 mb-4"></i>
+                            <p class="text-xl text-gray-500 font-semibold mb-2">No products</p>
+                        </div>
+                        <span >No Product Added Yet</span>
+                            <a href="./shop.php" class="text-pink-600 font-bold hover:underline text-base">Go to Shop</a>
+                    </div>`;
+                } else {
+                    data.wishlist.forEach(item => {
+                        const productDiv = document.createElement('div');
+                        productDiv.classList.add('product');
+                        productDiv.setAttribute('data-id', item.id);
+                        productDiv.innerHTML = `
                                 <div class="p-10 bg-white overflow-hidden shadow-2xl rounded-3xl border-2 border-gray-100 transition-all duration-200 hover:shadow-2xl hover:scale-105 hover:border-pink-500 border-opacity-100 cursor-pointer text-center relative">
                                     <span class="absolute top-3 right-3 text-pink-500 text-2xl bg-white rounded-full p-2 shadow-md z-10"><i class="fas fa-heart"></i></span>
                                     <div class="flex items-center justify-center mb-6">
                                         <div class="w-56 h-56 bg-gradient-to-br from-gray-100 to-pink-50 rounded-2xl flex items-center justify-center border border-gray-200 shadow-lg">
-                                            <img class="max-w-full max-h-full object-contain rounded-xl" src="${item.image}" alt="Product Image">
+                                            <a href="product.php?id=${item.id}">
+    <img class="max-w-full max-h-full object-contain rounded-xl" src="${item.image}" alt="Product Image">
+</a>
                                         </div>
                                     </div>
                                     <h3 class="text-2xl font-bold text-gray-800 mb-2">${item.name}</h3>
@@ -126,26 +146,20 @@ if (!isset($_SESSION['Id'])) {
                                     <button class="remove-from-wishlist mt-6 text-lg inline-flex items-center justify-center bg-pink-500 hover:bg-pink-600 transition-all text-white rounded-lg cursor-pointer py-3 px-8 font-bold shadow"><i class="fas fa-trash mr-2"></i>Remove</button>
                                 </div>
                             `;
-                            wishlistContainer.appendChild(productDiv);
+                        wishlistContainer.appendChild(productDiv);
+                    });
+                    document.querySelectorAll('.remove-from-wishlist').forEach(button => {
+                        button.addEventListener('click', (event) => {
+                            const productElement = event.target.closest('.product');
+                            const productId = parseInt(productElement.getAttribute('data-id'));
+                            removeFromWishlist(productId);
                         });
-                        document.querySelectorAll('.remove-from-wishlist').forEach(button => {
-                            button.addEventListener('click', (event) => {
-                                const productElement = event.target.closest('.product');
-                                const productId = parseInt(productElement.getAttribute('data-id'));
-                                removeFromWishlist(productId);
-                            });
-                        });
-                    }
-                });
-        }
-        displayWishlist();
-    </script>
-    <?php include("./footer.php"); ?>
-</body>
+                    });
+                }
+            });
+    }
+    displayWishlist();
 
-<!-- Back to Top Button -->
-<button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" id="backToTopBtn" class="fixed bottom-8 right-8 z-50 bg-teal-500 text-white p-4 rounded-full shadow-lg hover:bg-teal-600 transition-all duration-200 hidden" title="Back to Top"><i class="fas fa-arrow-up"></i></button>
-<script>
     window.addEventListener('scroll', function() {
         const btn = document.getElementById('backToTopBtn');
         if (window.scrollY > 300) {

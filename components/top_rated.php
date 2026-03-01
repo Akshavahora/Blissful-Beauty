@@ -86,7 +86,8 @@ $res = mysqli_query($conn, $sel);
                 <div class="box p-6 bg-white overflow-hidden shadow-lg rounded-2xl border border-opacity-20 text-center relative hover:shadow-2xl hover:scale-105 hover:border-teal-600 border transition-all duration-300 cursor-pointer animate-fade-in-up">
                     <a href="product.php?id=<?php echo $row['P_Id']; ?>" class="fas fa-eye absolute top-6 left-6 rounded-full h-10 w-10 text-2xl text-black flex items-center justify-center transition-all duration-200"></a>
                     <a href="#" class="fas fa-heart absolute top-6 right-6 rounded-full h-10 w-10 text-2xl text-black flex items-center justify-center wishlist-button transition-all duration-200"></a>
-                    <a href="product.php?id=<?php echo $row['P_Id']; ?>"></a>
+                    
+                    <a href="product.php?id=<?php echo $row['P_Id']; ?> ">
                         <img class="max-w-full max-h-full rounded-lg shadow" src='../admin/components/uploads/<?php echo $row['image_1']; ?>' alt="Product Image">
                     </a>
                     <h3 class="text-2xl h-24 text-black font-semibold mt-2 mb-1"><?php echo $row['P_Name']; ?></h3>

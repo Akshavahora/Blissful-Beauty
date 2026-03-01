@@ -140,48 +140,44 @@ $res = mysqli_query($conn, $sel);
 <?php include('footer.php'); ?>
 
 <script>
-
+    // Filter script start
     function normalizeBrand(value) {
-    return value
-        .toLowerCase()
-        .replace(/'/g, "")   // remove apostrophe
-        .trim();
-}
-
+        return value
+            .toLowerCase()
+            .replace(/'/g, "") // remove apostrophe
+            .trim();
+    }
 
     let selectedBrands = [];
     let selectedTypes = [];
 
-
-
-
     function applyCombinedFilter() {
-    const products = document.querySelectorAll('.product');
-    let visibleProducts = 0;
+        const products = document.querySelectorAll('.product');
+        let visibleProducts = 0;
 
-    products.forEach(product => {
-        const productBrand = normalizeBrand(product.dataset.brand);
-        const productType = product.dataset.type.toLowerCase();
+        products.forEach(product => {
+            const productBrand = normalizeBrand(product.dataset.brand);
+            const productType = product.dataset.type.toLowerCase();
 
-        const brandMatch =
-            selectedBrands.length === 0 ||
-            selectedBrands.map(normalizeBrand).includes(productBrand);
+            const brandMatch =
+                selectedBrands.length === 0 ||
+                selectedBrands.map(normalizeBrand).includes(productBrand);
 
-        const typeMatch =
-            selectedTypes.length === 0 ||
-            selectedTypes.includes(productType);
+            const typeMatch =
+                selectedTypes.length === 0 ||
+                selectedTypes.includes(productType);
 
-        if (brandMatch && typeMatch) {
-            product.style.display = 'block';
-            visibleProducts++;
-        } else {
-            product.style.display = 'none';
-        }
-    });
+            if (brandMatch && typeMatch) {
+                product.style.display = 'block';
+                visibleProducts++;
+            } else {
+                product.style.display = 'none';
+            }
+        });
 
-    document.getElementById('noProductMessage')
-        .classList.toggle('hidden', visibleProducts > 0);
-}
+        document.getElementById('noProductMessage')
+            .classList.toggle('hidden', visibleProducts > 0);
+    }
 
 
 
@@ -192,28 +188,6 @@ $res = mysqli_query($conn, $sel);
         panel.classList.toggle('hidden');
         arrow.classList.toggle('rotate-180');
     });
-
-    // document.getElementById('applyOtherFilter').addEventListener('click', function() {
-    //     let selectedBrands = [];
-    //     document.querySelectorAll('#otherFilterPanel input[type="checkbox"]:checked').forEach(checkbox => {
-    //         selectedBrands.push(checkbox.nextElementSibling.textContent.trim().toLowerCase());
-    //     });
-
-    //     let products = document.querySelectorAll('.product');
-    //     let visibleProducts = 0;
-    //     products.forEach(product => {
-    //         let productBrand = product.getAttribute('data-brand').trim().toLowerCase();
-    //         if (selectedBrands.length === 0 || selectedBrands.includes(productBrand)) {
-    //             product.style.display = 'block';
-    //             visibleProducts++;
-    //         } else {
-    //             product.style.display = 'none';
-    //         }
-    //     });
-
-    //     document.getElementById('otherFilterPanel').classList.add('hidden');
-    //     document.getElementById('noProductMessage').classList.toggle('hidden', visibleProducts > 0);
-    // });
 
     document.getElementById('applyOtherFilter').addEventListener('click', function() {
         selectedBrands = [];
@@ -249,29 +223,6 @@ $res = mysqli_query($conn, $sel);
         arrow.classList.toggle('rotate-180');
     });
 
-    // document.getElementById('applyFilter').addEventListener('click', function() {
-    //     let selectedTypes = [];
-    //     document.querySelectorAll('.filter-checkbox:checked').forEach(checkbox => {
-    //         selectedTypes.push(checkbox.value.toLowerCase());
-    //     });
-
-    //     let products = document.querySelectorAll('.product');
-    //     let visibleProducts = 0;
-    //     products.forEach(product => {
-    //         let productType = product.getAttribute('data-type').toLowerCase();
-    //         if (selectedTypes.length === 0 || selectedTypes.includes(productType)) {
-    //             product.style.display = 'block';
-    //             visibleProducts++;
-    //         } else {
-    //             product.style.display = 'none';
-    //         }
-    //     });
-
-    //     document.getElementById('filterDropdown').classList.add('hidden');
-    //     document.getElementById('filterArrow').classList.remove('rotate-180');
-    //     document.getElementById('noProductMessage').classList.toggle('hidden', visibleProducts > 0);
-    // });
-
     document.getElementById('applyFilter').addEventListener('click', function() {
         selectedTypes = [];
 
@@ -281,14 +232,6 @@ $res = mysqli_query($conn, $sel);
 
         applyCombinedFilter();
     });
-
-
-    // document.getElementById('clearFilter').addEventListener('click', function() {
-    //     document.querySelectorAll('.filter-checkbox').forEach(checkbox => checkbox.checked = false);
-    //     document.querySelectorAll('.product').forEach(product => product.style.display = 'block');
-    //     updateFilterCount();
-    //     document.getElementById('noProductMessage').classList.add('hidden');
-    // });
 
     document.getElementById('clearBrandFilter').addEventListener('click', function() {
         selectedBrands = [];
@@ -328,6 +271,19 @@ $res = mysqli_query($conn, $sel);
             document.getElementById('otherFilterArrow').classList.remove('rotate-180');
         }
     });
+
+    //   CLOSE BRAND FILTER ON APPLY  
+    document.getElementById("applyOtherFilter").addEventListener("click", function() {
+        document.getElementById("otherFilterPanel").classList.add("hidden");
+        document.getElementById("otherFilterArrow").classList.remove("rotate-180");
+    });
+
+    // CLOSE TYPE FILTER ON APPLY  
+    document.getElementById("applyFilter").addEventListener("click", function() {
+        document.getElementById("filterDropdown").classList.add("hidden");
+        document.getElementById("filterArrow").classList.remove("rotate-180");
+    });
+    // Filter script end
 
     function addToCart(productId, productName, productPrice, productImage) {
         const cart = JSON.parse(localStorage.getItem('cart')) || [];

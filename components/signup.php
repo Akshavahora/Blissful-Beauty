@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 
 <body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-teal-100 via-pink-50 to-yellow-100">
@@ -35,7 +36,24 @@
                         <label class="block font-semibold text-pink-600 mb-1 text-sm">Phone Number</label>
                         <input type="tel" id="phone" name="Phone" class="w-full p-2 border rounded-lg focus:ring-pink-400 focus:border-pink-400 text-base pl-10" placeholder="Enter your phone number" required>
                         <i class="fas fa-phone absolute left-3 top-8 text-pink-300"></i>
-                        <p class="text-pink-500 text-xs hidden mt-1 transition-all duration-200" id="phoneError">Enter a valid phone number.</p>
+                        <p class="text-pink-500 text-xs hidden mt-1 transition-all duration-200" id="phoneError">Enter a valid 10-digit phone number.</p>
+                    </div>
+                    <div class="mb-3 relative">
+                        <label class="block font-semibold text-pink-600 mb-1 text-sm">Pincode</label>
+                        <input type="text" id="pincode" name="Pincode" class="w-full p-2 border rounded-lg focus:ring-pink-400 focus:border-pink-400 text-base pl-10" placeholder="Enter your pincode" required>
+                        <i class="fas fa-map-pin absolute left-3 top-8 text-pink-300"></i>
+                        <p class="text-pink-500 text-xs hidden mt-1 transition-all duration-200" id="pincodeError">Enter a valid 6-digit pincode.</p>
+                    </div>
+                    <div class="mb-3 relative">
+                        <label class="block font-semibold text-pink-600 mb-1 text-sm">Address Type</label>
+                        <select id="addressType" name="AddressType" class="w-full p-2 border rounded-lg focus:ring-pink-400 focus:border-pink-400 text-base pl-3" required>
+                            <option value="">Select address type</option>
+                            <option value="Home">Home</option>
+                            <option value="Shop">Shop</option>
+                            <option value="Office">Office</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <p class="text-pink-500 text-xs hidden mt-1 transition-all duration-200" id="addressTypeError">Address type is required.</p>
                     </div>
                     <div class="mb-3 relative">
                         <label class="block font-semibold text-pink-600 mb-1 text-sm">Address</label>
@@ -68,7 +86,7 @@
     <script>
         function togglePassword(id) {
             const input = document.getElementById(id);
-            const icon = input.nextElementSibling.nextElementSibling.querySelector('i');
+            const icon = input.nextElementSibling.querySelector('i');
             if (input.type === 'password') {
                 input.type = 'text';
                 icon.classList.remove('fa-eye');
@@ -79,51 +97,83 @@
                 icon.classList.add('fa-eye');
             }
         }
+
         document.getElementById("signupform").addEventListener("submit", function(event) {
             event.preventDefault();
             let isValid = true;
+
+            // Full Name Validation
             const name = document.getElementById("fullName").value.trim();
-            const email = document.getElementById("email").value.trim();
-            const phone = document.getElementById("phone").value.trim();
-            const address = document.getElementById("address").value.trim();
-            const password = document.getElementById("password").value.trim();
-            const confirmPassword = document.getElementById("confirmPassword").value.trim();
             if (name === "") {
                 document.getElementById("nameError").classList.remove("hidden");
                 isValid = false;
             } else {
                 document.getElementById("nameError").classList.add("hidden");
             }
+
+            // Email Validation
+            const email = document.getElementById("email").value.trim();
             if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
                 document.getElementById("emailError").classList.remove("hidden");
                 isValid = false;
             } else {
                 document.getElementById("emailError").classList.add("hidden");
             }
+
+            // Phone Validation
+            const phone = document.getElementById("phone").value.trim();
             if (!/^[0-9]{10}$/.test(phone)) {
                 document.getElementById("phoneError").classList.remove("hidden");
                 isValid = false;
             } else {
                 document.getElementById("phoneError").classList.add("hidden");
             }
+
+            // Pincode Validation
+            const pincode = document.getElementById("pincode").value.trim();
+            if (!/^[0-9]{6}$/.test(pincode)) {
+                document.getElementById("pincodeError").classList.remove("hidden");
+                isValid = false;
+            } else {
+                document.getElementById("pincodeError").classList.add("hidden");
+            }
+
+            // Address Type Validation
+            const addressType = document.getElementById("addressType").value;
+            if (addressType === "") {
+                document.getElementById("addressTypeError").classList.remove("hidden");
+                isValid = false;
+            } else {
+                document.getElementById("addressTypeError").classList.add("hidden");
+            }
+
+            // Address Validation
+            const address = document.getElementById("address").value.trim();
             if (address === "") {
                 document.getElementById("addressError").classList.remove("hidden");
                 isValid = false;
             } else {
                 document.getElementById("addressError").classList.add("hidden");
             }
+
+            // Password Validation
+            const password = document.getElementById("password").value.trim();
             if (password.length < 6) {
                 document.getElementById("passwordError").classList.remove("hidden");
                 isValid = false;
             } else {
                 document.getElementById("passwordError").classList.add("hidden");
             }
+
+            // Confirm Password Validation
+            const confirmPassword = document.getElementById("confirmPassword").value.trim();
             if (password !== confirmPassword) {
                 document.getElementById("confirmPasswordError").classList.remove("hidden");
                 isValid = false;
             } else {
                 document.getElementById("confirmPasswordError").classList.add("hidden");
             }
+
             if (isValid) {
                 this.submit();
             }

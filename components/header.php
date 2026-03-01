@@ -6,8 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blissful Beauty Cosmetics</title>
   <link rel="stylesheet" href="../css/style.css">
+  <!-- Tailwind css link -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Swiper js link -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <!-- font-awesome link -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <style>
     /* Dropdown Menu Styles */

@@ -57,9 +57,9 @@ $res = mysqli_query($conn, $sel);
                     <a href="#" class="fas fa-heart absolute top-6 right-6 rounded-full h-10 w-10 text-2xl text-black flex items-center justify-center  wishlist-button transition-all duration-200"></a>
                     <a href="product.php?id=<?php echo $row['P_Id']; ?>" class="fas fa-eye absolute top-6 left-6 rounded-full h-10 w-10 text-2xl text-black flex items-center justify-center  transition-all duration-200"></a>
                     <a href="product.php?id=<?php echo $row['P_Id']; ?>"
-                            class="block w-full h-80 flex items-center justify-center bg-white rounded-xl overflow-hidden">
+                        class="block w-full h-80 flex items-center justify-center bg-white rounded-xl overflow-hidden">
                         <img class="max-w-full max-h-full rounded-lg shadow" src='../admin/components/uploads/<?php echo $row['image_1']; ?>' alt="Product Image">
-        </a>
+                    </a>
                     <h3 class="text-2xl h-24 text-pink-700 font-semibold mt-2 mb-1"><?php echo $row['P_Name']; ?></h3>
                     <p class="text-pink-500 text-3xl md:text-4xl mt-2 font-bold">₹<?php echo $row['P_Price']; ?></p>
                 </div>
@@ -67,8 +67,11 @@ $res = mysqli_query($conn, $sel);
         <?php endwhile; ?>
     </div>
     <div id="noProductMessage" class="flex flex-col items-center justify-center text-center text-pink-500 text-xl hidden mt-12 animate-fade-in-up">
-        <img src="../Images/empty-box.png" alt="No Products" class="w-32 h-32 mx-auto mb-4 opacity-70">
-        <span>No Product Added Yet</span>
+        <div class="flex flex-col items-center justify-center py-16">
+            <i class="fa-solid fa-box text-6xl text-gray-300 mb-4"></i>
+            <p class="text-xl text-gray-500 font-semibold mb-2">No products</p>
+        </div>
+        <span >No Product Added Yet</span>
     </div>
 
     <!-- Back to Top Button -->
@@ -185,6 +188,14 @@ $res = mysqli_query($conn, $sel);
             document.getElementById('filterArrow').classList.remove('rotate-180');
         }
     });
+
+    // CLOSE TYPE FILTER ON APPLY  
+    document.getElementById("applyFilter").addEventListener("click", function() {
+        document.getElementById("filterDropdown").classList.add("hidden");
+        document.getElementById("filterArrow").classList.remove("rotate-180");
+    });
+
+    // filter script end
 
     function addToCart(productId, productName, productPrice, productImage) {
         const cart = JSON.parse(localStorage.getItem('cart')) || [];

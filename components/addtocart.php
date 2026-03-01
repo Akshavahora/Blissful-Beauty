@@ -1,5 +1,8 @@
 <?php
 session_start();
+$content = '';
+require_once('header.php');
+
 if (!isset($_SESSION['Id'])) {
   echo "<script>
         localStorage.removeItem('cart');
@@ -7,50 +10,45 @@ if (!isset($_SESSION['Id'])) {
         window.location.href = 'login.php';
     </script>";
 }
-
-function getColorNameFromAPI($hex)
-{
-  $hex = ltrim($hex, '#'); // Remove # if present
-  $url = "https://www.thecolorapi.com/id?hex=$hex";
-
-  $response = file_get_contents($url);
-  if ($response) {
-    $data = json_decode($response, true);
-    return $data['name']['value'] ?? "Unknown Color";
-  }
-  return "Unknown Color";
-}
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+<div class="min-h-screen bg-gradient-to-br from-teal-50 to-pink-50 flex justify-center">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shopping Cart</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-</head>
+  <div class="w-full max-w-6xl px-4 py-10">
 
-<body class="font-sans" style="background: linear-gradient(120deg, #f0fdfa 0%, #fdf2f8 100%); min-height: 100vh;">
-  <main class="container mx-auto py-12 flex flex-col items-center min-h-screen">
-    <h1 class="text-4xl font-extrabold mb-8 text-teal-700 tracking-wide">Shopping Cart</h1>
-    <!-- Shopping Cart Items -->
-    <div id="cart" class="w-full max-w-2xl space-y-6"></div>
-    <!-- Summary -->
-    <div class="bg-white shadow-2xl rounded-2xl p-6 mt-10 w-full max-w-md border-t-4 border-teal-400 sticky bottom-0 z-10">
-      <div class="flex justify-between items-center">
-        <div class="text-right">
-          <p class="text-xl font-bold text-gray-700">Total Price: <span id="grand-total" class="text-teal-600">₹0.00</span></p>
-        </div>
+    <h1 class="text-4xl font-extrabold mb-10 text-center text-teal-700">
+      Shopping Cart
+    </h1>
+
+    <!-- Cart Items -->
+    <div id="cart" class="space-y-6"></div>
+
+    <!-- Summary Section -->
+    <div class="bg-white shadow-2xl rounded-2xl p-6 mt-12 max-w-xl mx-auto border-t-4 border-teal-400">
+
+      <div class="text-center mb-6">
+        <p class="text-2xl font-bold text-gray-700">
+          Total Price:
+          <span id="grand-total" class="text-teal-600">₹0.00</span>
+        </p>
       </div>
-      <div class="flex justify-between mt-6">
-        <a href="./index.php"><button class="bg-gray-200 text-gray-700 px-5 py-2 rounded-lg hover:bg-gray-300 font-semibold transition-all"><i class="fas fa-arrow-left mr-2"></i>Back to Shopping</button></a>
-        <a href="./checkout.php"><button class="bg-teal-500 text-white px-6 py-2 rounded-lg hover:bg-teal-600 font-bold shadow transition-all">Checkout <i class="fas fa-arrow-right ml-2"></i></button></a>
+
+      <div class="flex justify-between">
+        <a href="./index.php"
+          class="bg-gray-200 text-gray-700 px-5 py-2 rounded-lg hover:bg-gray-300 font-semibold transition">
+          <i class="fas fa-arrow-left mr-2"></i>Back
+        </a>
+
+        <a href="./checkout.php"
+          class="bg-teal-500 text-white px-6 py-2 rounded-lg hover:bg-teal-600 font-bold shadow transition">
+          Checkout <i class="fas fa-arrow-right ml-2"></i>
+        </a>
       </div>
+
     </div>
-  </main>
+
+  </div>
+</div>
 
   <script>
     function loadCart() {
@@ -60,13 +58,14 @@ function getColorNameFromAPI($hex)
       if (cart.length === 0) {
         cartContainer.innerHTML = `
           <div class="flex flex-col items-center justify-center py-16">
-            <img src="https://cdn.jsdelivr.net/gh/edent/SuperTinyIcons/images/svg/shopping-cart.svg" alt="Empty Cart" class="w-32 mx-auto mb-4">
+            <i class="fa-solid fa-box text-6xl text-gray-300 mb-4"></i>
             <p class="text-xl text-gray-500 font-semibold mb-2">Your cart is empty.</p>
-            <a href="./shop.php" class="text-teal-600 font-bold hover:underline">Go to Shop <i class="fa fa-arrow-right ml-2"></i></a>
+            <a href="./shop.php" class="text-teal-600 font-bold hover:underline">Go to Shop <i class="fas fa-arrow-right ml-2"></i></a>
           </div>
         `;
         return;
       }
+
       cartContainer.innerHTML = '';
       cart.forEach((product, index) => {
         const total = (product.price * product.quantity).toFixed(2);
@@ -74,9 +73,9 @@ function getColorNameFromAPI($hex)
         cartContainer.innerHTML += `
           <div class="flex flex-col sm:flex-row items-center bg-white shadow-xl rounded-2xl border-2 border-gray-100 p-6 transition-box-shadow duration-200 hover:shadow-lg hover:border-teal-400 hover:-translate-y-1 hover:scale-[1.01]">
             <div class="flex-shrink-0 mb-4 sm:mb-0">
-              <img class="w-24 h-24 rounded-2xl shadow-lg border-2 border-teal-100 object-cover" src="${product.images[0]}" alt="${product.name}">
+              <img class="w-36 h-36 rounded-2xl shadow-lg border-2 border-teal-100 object-cover" src="${product.images[0]}" alt="${product.name}">
             </div>
-            <div class="ml-0 sm:ml-6 flex-1 w-full">
+            <div class="ml-72 -mr-44 sm:ml-6 flex-1 w-full">
               <h2 class="text-xl font-bold text-gray-800 mb-2">${product.name}</h2>
               <div class="flex items-center mb-2">
                 <div class="group relative cursor-pointer rounded-full w-10 h-10 mr-3 border-2 border-gray-300 hover:border-teal-500 transition-colors duration-200" style="background-color: ${product.shade_color}">
@@ -130,7 +129,7 @@ function getColorNameFromAPI($hex)
   </script>
 
   <!-- Back to Top Button -->
-  <button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" id="backToTopBtn" class="fixed bottom-8 right-8 z-50 bg-teal-500 text-white p-4 rounded-full shadow-lg hover:bg-teal-600 transition-all duration-200 hidden" title="Back to Top"><i class="fas fa-arrow-up"></i></button>
+  <button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" id="backToTopBtn" class="fixed bottom-20 right-8 z-50 bg-teal-500 text-white p-4 rounded-full shadow-lg hover:bg-teal-600 transition-all duration-200 hidden" title="Back to Top"><i class="fas fa-arrow-up"></i></button>
   <script>
     window.addEventListener('scroll', function() {
       const btn = document.getElementById('backToTopBtn');
@@ -141,6 +140,8 @@ function getColorNameFromAPI($hex)
       }
     });
   </script>
-</body>
 
-</html>
+  <!-- Include footer page -->
+  <?php include("./footer.php"); ?>
+
+<!-- </html> -->

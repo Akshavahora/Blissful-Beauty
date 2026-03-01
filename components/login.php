@@ -10,11 +10,9 @@ $isLoggedIn = isset($_SESSION['Email']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <!-- tailwind css link  -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- external style link -->
-     <link rel="stylesheet" href="css/style.css">
-    <!-- font awesome link  -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         .glass {
@@ -22,6 +20,7 @@ $isLoggedIn = isset($_SESSION['Email']);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1.5px solid rgba(0, 128, 128, 0.15);
+            border-radius: 1.5rem;
         }
 
         .input-icon {
@@ -34,6 +33,8 @@ $isLoggedIn = isset($_SESSION['Email']);
 
         .input-with-icon {
             padding-left: 2.5rem;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .login-image-bg {
@@ -46,13 +47,8 @@ $isLoggedIn = isset($_SESSION['Email']);
         }
 
         @keyframes zoomIn {
-            0% {
-                transform: scale(1);
-            }
-
-            100% {
-                transform: scale(1.05);
-            }
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
         }
 
         .login-image-overlay {
@@ -64,43 +60,49 @@ $isLoggedIn = isset($_SESSION['Email']);
 
         @media (max-width: 768px) {
             .login-image-bg {
-                min-height: 220px;
-                height: 220px;
+                display: none;
+            }
+
+            .glass {
+                margin: 1rem;
+                padding: 1.5rem;
+                width: 90%;
+            }
+
+            h2.text-3xl {
+                font-size: 1.75rem;
             }
         }
     </style>
 </head>
 
 <body class="min-h-screen flex items-stretch bg-gradient-to-br from-teal-100 via-pink-50 to-yellow-100 relative overflow-hidden">
-    <div class="flex flex-row w-full min-h-screen">
-        <!-- Left: Image (ALL screens) -->
-<div class="w-1/2 relative login-image-bg">
-    <div class="login-image-overlay"></div>
+    <div class="flex flex-col md:flex-row w-full min-h-screen">
+        <!-- Left: Image (Hidden on Mobile) -->
+        <div class="hidden md:block md:w-1/2 relative login-image-bg">
+            <div class="login-image-overlay"></div>
+            <div class="absolute inset-0 flex flex-col items-center justify-center z-10 px-4">
+                <img src="../Images/B.png" alt="Brand Logo" class="h-16 w-16 md:h-24 md:w-24 rounded-full shadow-xl border-4 border-white bg-white/80 mb-4">
+                <h2 class="text-xl md:text-4xl font-extrabold text-white drop-shadow-lg text-center mb-2">
+                    Welcome to <span class="text-teal-200">Cosmetic Store</span>
+                </h2>
+                <p class="hidden md:block text-lg text-white/90 text-center max-w-xs">
+                    Discover the best in beauty, curated just for you.
+                </p>
+            </div>
+        </div>
 
-    <div class="absolute inset-0 flex flex-col items-center justify-center z-10 px-4">
-        <img src="../Images/B.png"
-             alt="Brand Logo"
-             class="h-16 w-16 md:h-24 md:w-24 rounded-full shadow-xl border-4 border-white bg-white/80 mb-4">
-
-        <h2 class="text-xl md:text-4xl font-extrabold text-white drop-shadow-lg text-center mb-2">
-            Welcome to <span class="text-teal-200">Cosmetic Store</span>
-        </h2>
-
-        <p class="hidden md:block text-lg text-white/90 text-center max-w-xs">
-            Discover the best in beauty, curated just for you.
-        </p>
-    </div>
-</div>
-
-        <!-- Right: Login Card -->
-        <div class="flex flex-col justify-center items-center w-1/2 z-20 relative">
-            <div class="w-full max-w-md glass rounded-3xl shadow-2xl p-8 border-t-4 border-teal-400 mx-4 my-8">
-                <div class="flex justify-center mb-4 md:hidden">
+        <!-- Right: Login Card (Full Width on Mobile) -->
+        <div class="w-full md:w-1/2 flex flex-col justify-center items-center z-20 relative p-4">
+            <div class="w-full max-w-md glass rounded-3xl shadow-2xl p-6 md:p-8 border-t-4 border-teal-400 mx-4 my-8">
+                <div class="flex justify-center mb-4">
                     <img src="../Images/B.png" alt="Logo" class="h-12 w-12 rounded-full shadow-lg border-2 border-teal-400 bg-white">
                 </div>
-                <h2 class="text-3xl font-extrabold text-center text-teal-700 mb-2 tracking-wide">Welcome Back</h2>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-center text-teal-700 mb-2 tracking-wide">Welcome Back</h2>
                 <p class="text-center text-gray-500 mb-6">Sign in to your account</p>
+
                 <form id="loginForm" class="mt-2" method="POST" action="./login_logic.php">
+                    <!-- Email Input -->
                     <div class="mb-5 relative">
                         <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
                         <i class="fas fa-envelope input-icon"></i>
@@ -108,11 +110,13 @@ $isLoggedIn = isset($_SESSION['Email']);
                             type="email"
                             id="email"
                             name="Email"
-                            class="input-with-icon mt-6 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-teal-500 focus:border-teal-500 text-base bg-white/80"
+                            class="input-with-icon mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-teal-500 focus:border-teal-500 text-base bg-white/80"
                             placeholder="Enter your email"
                             required>
                         <span id="emailError" class="text-sm text-red-500 hidden transition-all duration-200">Please enter a valid email address.</span>
                     </div>
+
+                    <!-- Password Input -->
                     <div class="mb-5 relative">
                         <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
                         <i class="fas fa-lock input-icon"></i>
@@ -120,33 +124,42 @@ $isLoggedIn = isset($_SESSION['Email']);
                             type="password"
                             id="password"
                             name="Password"
-                            class="input-with-icon mt-8 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-teal-500 focus:border-teal-500 text-base bg-white/80"
+                            class="input-with-icon mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-teal-500 focus:border-teal-500 text-base bg-white/80"
                             placeholder="Enter your password"
                             required>
                         <span id="passwordError" class="text-sm text-red-500 hidden transition-all duration-200">Password must be at least 6 characters long.</span>
                     </div>
+
+                    <!-- Remember Me & Forgot Password -->
                     <div class="flex items-center justify-between mb-6">
                         <label class="flex items-center text-sm text-gray-600">
                             <input type="checkbox" class="h-4 w-4 text-teal-500 focus:ring-teal-500 border-gray-300 rounded">
                             <span class="ml-2">Remember me</span>
                         </label>
-                        <a href="./forgot_password.php" id="forgotPasswordLink" class="text-sm text-teal-600 hover:underline font-semibold">Forgot password?</a>
+                        <a href="./forgot_password.php" class="text-sm text-teal-600 hover:underline font-semibold">Forgot password?</a>
                     </div>
+
+                    <!-- Login Button -->
                     <button
                         type="submit"
-                        class="w-full bg-teal-500 text-white py-3 px-4 rounded-lg font-bold text-lg shadow-md hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2 transition-all duration-200">Login
+                        class="w-full bg-teal-500 text-white py-3 px-4 rounded-lg font-bold text-lg shadow-md hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2 transition-all duration-200">
+                        Login
                     </button>
                 </form>
-                <p class="mt-6 text-sm text-gray-600 text-center">Don't have an account? <a href="./signup.php" class="text-teal-600 font-semibold hover:underline">Sign up</a></p>
+
+                <!-- Sign Up Link -->
+                <p class="mt-6 text-sm text-gray-600 text-center">
+                    Don't have an account? <a href="./signup.php" class="text-teal-600 font-semibold hover:underline">Sign up</a>
+                </p>
             </div>
         </div>
     </div>
+
+    <!-- Error Toast Script -->
     <script>
-        // Check if there is a login error in the URL parameters
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has('login_error')) {
             if (urlParams.get('login_error') == 1) {
-                // Show animated error toast
                 const toast = document.createElement('div');
                 toast.className = 'fixed top-8 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-bounce';
                 toast.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>Email or password does not match.';

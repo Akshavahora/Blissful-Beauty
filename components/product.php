@@ -53,15 +53,16 @@ function getColorNameFromAPI($hex)
 </head>
 
 <body class="min-h-screen bg-gradient-to-br from-teal-50 to-pink-50">
-    <main class="container mx-auto py-12 flex flex-col items-center min-h-screen">
-        <div class="w-full max-w-5xl bg-white border-2 border-gray-200 rounded-[2rem] shadow-lg hover:shadow-xl transition-all duration-200 p-8 flex flex-col md:flex-row gap-10">
+    <main class="w-full bg-gradient-to-br from-teal-50 to-pink-50 py-12 flex justify-center">
+        <div class="w-full max-w-7xl mx-auto bg-white border border-gray-200 rounded-[3rem] shadow-2xl p-12 flex flex-col lg:flex-row gap-16">
             <!-- Product Image Section -->
+
             <div class="w-full md:w-1/2 flex flex-col gap-4 items-center justify-center">
                 <div class="grid grid-cols-2 gap-4">
-                    <img id="product-img-1" class="w-44 h-44 md:w-64 md:h-64 object-cover rounded-2xl border-2 border-gray-200 shadow-md hover:shadow-xl hover:scale-105 transition-all duration-200" src='../admin/components/uploads/<?php echo $product['image_1']; ?>' alt="Product Image">
-                    <img id="product-img-2" class="w-44 h-44 md:w-64 md:h-64 object-cover rounded-2xl border-2 border-gray-200 shadow-md hover:shadow-xl hover:scale-105 transition-all duration-200" src='../admin/components/uploads/<?php echo $product['image_2']; ?>' alt="Product Image">
-                    <img id="product-img-3" class="w-44 h-44 md:w-64 md:h-64 object-cover rounded-2xl border-2 border-gray-200 shadow-md hover:shadow-xl hover:scale-105 transition-all duration-200" src='../admin/components/uploads/<?php echo $product['image_3']; ?>' alt="Product Image">
-                    <img id="product-img-4" class="w-44 h-44 md:w-64 md:h-64 object-cover rounded-2xl border-2 border-gray-200 shadow-md hover:shadow-xl hover:scale-105 transition-all duration-200" src='../admin/components/uploads/<?php echo $product['image_4']; ?>' alt="Product Image">
+                    <img id="product-img-1" class="w-44 h-44 md:w-64 md:h-64 product-image object-cover" src='../admin/components/uploads/<?php echo $product['image_1']; ?>' alt="Product Image">
+                    <img id="product-img-2" class="w-44 h-44 md:w-64 md:h-64 product-image object-cover" src='../admin/components/uploads/<?php echo $product['image_2']; ?>' alt="Product Image">
+                    <img id="product-img-3" class="w-44 h-44 md:w-64 md:h-64 product-image object-cover" src='../admin/components/uploads/<?php echo $product['image_3']; ?>' alt="Product Image">
+                    <img id="product-img-4" class="w-44 h-44 md:w-64 md:h-64 product-image object-cover" src='../admin/components/uploads/<?php echo $product['image_4']; ?>' alt="Product Image">
                 </div>
             </div>
             <!-- Product Details -->
@@ -108,52 +109,84 @@ function getColorNameFromAPI($hex)
                             document.getElementById('product-img-3').src,
                             document.getElementById('product-img-4').src
                         )"
-                        class="add-to-cart bg-teal-500 hover:bg-teal-600 hover:tracking-wide text-xl inline-flex items-center justify-center text-white rounded-lg cursor-pointer py-3 px-8 font-bold shadow transition-all duration-200">
+                        class="add-to-cart bg-teal-500 hover:bg-teal-600 hover:tracking-wide text-xl inline-flex items-center justify-center text-white rounded-lg cursor-pointer py-3 px-8 font-bold shadow transition-all duration-200  mb-4">
                         <i class="fas fa-shopping-bag mr-2"></i>Add to Bag
+                    </button>
+                </div>
+                <div class="w-full max-w-7xl mb-6 flex justify-start">
+                    <button onclick="goBack()"
+                        class="bg-teal-500 hover:bg-teal-600 hover:tracking-wide text-xl inline-flex items-center justify-center text-white rounded-lg cursor-pointer py-3 px-8 font-bold shadow transition-all duration-200  mb-4 gap-2">
+                        <i class="fas fa-arrow-left"></i> Back
                     </button>
                 </div>
             </div>
         </div>
         <!-- Back to Top Button -->
         <button onclick="window.scrollTo({top: 0, behavior: 'smooth'});"
-                class="fixed bottom-8 right-8 z-50 bg-teal-500 text-white p-4 rounded-full shadow-lg hover:bg-teal-600 hover:scale-105 transition-all duration-200"
-                title="Back to Top">
+            class="fixed bottom-8 right-8 z-50 bg-teal-500 text-white p-4 rounded-full shadow-lg hover:bg-teal-600 hover:scale-105 transition-all duration-200"
+            title="Back to Top">
             <i class="fas fa-arrow-up"></i>
         </button>
     </main>
+
+    <?php
+    // Include the footer
+    include('footer.php');
+    ?>
+
+    <script>
+        const isLoggedIn = <?php echo isset($_SESSION['Id']) ? 'true' : 'false'; ?>;
+    </script>
 </body>
 
+<!-- Back button script -->
+<script>
+    function goBack() {
+        if (document.referrer !== "") {
+            window.history.back();
+        } else {
+            window.location.href = "index.php";
+        }
+    }
+</script>
 <script>
     // Function to add a product to the cart
     function addToCart(productId, productName, productPrice, shadeProductId, shadeColor, img1, img2, img3, img4) {
-        if (!shadeProductId) {
-            alert("Please select a shade before adding to the cart!");
-            return;
-        }
 
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        // Check if the same product + shade already exists
-        const existingProduct = cart.find(item => item.shade_product_id === shadeProductId);
-
-        if (existingProduct) {
-            existingProduct.quantity += 1; // Increase quantity if the same shade is selected again
-        } else {
-            cart.push({
-                id: productId,
-                name: productName,
-                price: productPrice,
-                shade_product_id: shadeProductId, // Store shade product ID instead of color
-                shade_color: shadeColor, // Store shade color for display
-                images: [img1, img2, img3, img4],
-                quantity: 1
-            });
-        }
-
-        localStorage.setItem('cart', JSON.stringify(cart));
-        alert(`${productName} (Shade: ${shadeColor}) added to cart!`);
-        updateCartCount();
+    //  LOGIN CHECK
+    if (!isLoggedIn) {
+        alert("User Not Logged In. Please Login First!");
+        window.location.href = "login.php";
+        return;
     }
+
+    if (!shadeProductId) {
+        alert("Please select a shade before adding to the cart!");
+        return;
+    }
+
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const existingProduct = cart.find(item => item.shade_product_id === shadeProductId);
+
+    if (existingProduct) {
+        existingProduct.quantity += 1;
+    } else {
+        cart.push({
+            id: productId,
+            name: productName,
+            price: productPrice,
+            shade_product_id: shadeProductId,
+            shade_color: shadeColor,
+            images: [img1, img2, img3, img4],
+            quantity: 1
+        });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert(`${productName} (Shade: ${shadeColor}) added to cart!`);
+    updateCartCount();
+}
 
     // Function to update cart count
     function updateCartCount() {

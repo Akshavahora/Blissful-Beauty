@@ -181,9 +181,7 @@ include('./header.php');
                         <a href="#" class="fas fa-heart absolute top-6 right-6 rounded-full h-10 w-10 text-2xl text-black flex items-center justify-center wishlist-button transition-all duration-200"></a>
                         <a href="product.php?id=<?php echo $row['P_Id']; ?>" class="fas fa-eye absolute top-6 left-6 rounded-full h-10 w-10 text-2xl text-black flex items-center justify-center  transition-all duration-200"></a>
 
-                        <a href="product.php?id=<?php echo $row['P_Id']; ?>"
-                            class="block w-full h-80 flex items-center justify-center bg-white rounded-xl overflow-hidden">
-
+                        <a href="product.php?id=<?php echo $row['P_Id']; ?>">
                             <img
                                 src="../admin/components/uploads/<?php echo $row['image_1']; ?>"
                                 alt="Product Image"
