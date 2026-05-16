@@ -5,7 +5,6 @@ include("../../dbconnection/connection.php"); // Ensure this connects to your da
 $query = "SELECT * FROM product"; // Adjust table/column names as per your DB
 $result = mysqli_query($conn, $query);
 ?>
-
 <?php
 $content = '';
 include("./aside.php");
