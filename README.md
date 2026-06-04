@@ -60,7 +60,7 @@ Blissful-Beauty-Cosmetics/
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/blissful-beauty-cosmetics.git
+git clone https://github.com/Akshavahora/blissful-beauty-cosmetics.git
 ```
 
 2. Move the project folder to your web server directory.
