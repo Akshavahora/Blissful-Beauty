@@ -112,7 +112,7 @@ Add screenshots of:
 
 ## Author
 
-Akshu Vahora
+Aksha Vahora
 
 ## License
 
