@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blissful Beauty Cosmetics</title>
   <link rel="stylesheet" href="../css/style.css">
+     <link rel="icon" type="image/png" href="../Images/BB.png">
   <!-- Tailwind css link -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Swiper js link -->
@@ -28,16 +29,17 @@
 <body class="fade-in">
   <!-- Header -->
   <header class="flex justify-between items-center p-4 bg-white shadow-md sticky top-0 z-50 border-b border-teal-100">
-    <a href="./index.php" class="flex items-center space-x-2">
+    <a href="index.php" class="flex items-center space-x-2">
       <img src="../Images/B.png" class="logo drop-shadow-md" alt="Logo" style="height: 56px;">
       <!-- Optional: <span class="font-extrabold text-2xl text-teal-700 tracking-widest ml-2">Blissful Beauty</span> -->
     </a>
 
     <nav class="navbar space-x-4">
-      <a href="index.php" class="uppercase font-bold tracking-wide text-black hover:text-teal-700 border-b-2 border-transparent hover:border-teal-600 transition-all duration-200">home</a>
-      <a href="shop.php" class="uppercase font-bold tracking-wide text-black hover:text-teal-700 border-b-2 border-transparent hover:border-teal-600 transition-all duration-200">Shop</a>
-      <a href="aboutus.php" class="uppercase font-bold tracking-wide text-black hover:text-teal-700 border-b-2 border-transparent hover:border-teal-600 transition-all duration-200">about us</a>
-      <a href="contactus.php" class="uppercase font-bold tracking-wide text-black hover:text-teal-700 border-b-2 border-transparent hover:border-teal-600 transition-all duration-200">contact us</a>
+      <a href="./index.php" class="uppercase font-bold tracking-wide text-black hover:text-teal-700 border-b-2 border-transparent hover:border-teal-600 transition-all duration-200">home</a>
+      <a href="./shop.php" class="uppercase font-bold tracking-wide text-black hover:text-teal-700 border-b-2 border-transparent hover:border-teal-600 transition-all duration-200">Shop</a>
+           <a href="./aboutus.php" class="uppercase font-bold tracking-wide text-black hover:text-teal-700 border-b-2 border-transparent hover:border-teal-600 transition-all duration-200">About-Us</a>
+        <a href="./contactus.php" class="uppercase font-bold tracking-wide text-black hover:text-teal-700 border-b-2 border-transparent hover:border-teal-600 transition-all duration-200">Contact-Us</a>
+      
     </nav>
 
     <div class="icons flex items-center space-x-2">

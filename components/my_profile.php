@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $delete_photo = $_POST['delete_photo'] ?? '0';
 
     $profile_photo = null;
-    $uploadDir = __DIR__ . '/../components/uploads/';
+    $uploadDir = __DIR__ . '/../components/profile_uploads/';
 
     // Handle photo
     if ($delete_photo === '1') {
@@ -85,7 +85,7 @@ $user = $result->fetch_assoc();
 $stmt->close();
 
 $profile_photo = isset($user['profile_photo']) && $user['profile_photo']
-    ? '../components/uploads/' . $user['profile_photo']
+    ? '../components/profile_uploads/' . $user['profile_photo']
     : "https://api.dicebear.com/7.x/avataaars/svg?seed=" . urlencode($user['Name']);
 
 include('header.php');

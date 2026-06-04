@@ -2,10 +2,7 @@
 session_start();
 
 require_once('../dbconnection/connection.php');
-require_once __DIR__ . '/../vendor/autoload.php';
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
 
 $content = '';
 include('./header.php');
@@ -28,38 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = "Message must be at least 10 characters long.";
     } else {
 
-        try {
-            $mail = new PHPMailer(true);
-
-            // SMTP CONFIG
-            $mail->isSMTP();
-            $mail->Host       = 'smtp.gmail.com';
-            $mail->SMTPAuth   = true;
-            $mail->Username   = 'akshu87588@gmail.com';
-            $mail->Password   = 'mhti xaan tube xcig'; // App Password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port       = 587;
-
-            // EMAIL SETUP
-            $mail->setFrom('akshu87588@gmail.com', 'Blissful Beauty');
-            $mail->addAddress('vahoraakshu@gmail.com'); // Admin
-            $mail->addReplyTo($email, $name);           // User
-
-            $mail->isHTML(true);
-            $mail->Subject = 'New Contact Message';
-            $mail->Body = "
-                <h3>New Contact Message</h3>
-                <p><b>Name:</b> {$name}</p>
-                <p><b>Email:</b> {$email}</p>
-                <p><b>Message:</b><br>{$message}</p>
-            ";
-
-            $mail->send();
-            $success = true;
-
-        } catch (Exception $e) {
-            $error = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-        }
+        $success= true;
     }
 }
 ?>
@@ -121,10 +87,3 @@ style="background-image:url('https://images.unsplash.com/photo-1515378791036-064
 </body>
 
 <?php include('./footer.php'); ?>
-
-
-
-
-
-
-
